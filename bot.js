@@ -8,8 +8,13 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-	if (msg.content === 'ping') {
-		msg.reply('Pong');
+	if (msg.content === '!zyczenia') {
+		msg.channel.send({
+			files: [{
+				attachment: 'assets/zyczenia.jpg',
+				name: 'zyczenia.jpg',
+			}],
+		});
 	}
 });
 
