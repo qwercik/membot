@@ -1,29 +1,16 @@
-const discord = require('discord.io');
-const logger = require('winston');
+const Discord = require('discord.js');
 const auth = require('./auth.json');
 
-logger.remove(logger.transports.Console);
-logger.add(new logger.transports.Console, {
-	colorize: true,
-});
-logger.level = 'debug';
+const bot = new Discord.Client();
 
-
-const bot = new discord.Client({
-	token: auth.token,
-	autorun: true,
+bot.on('ready', () => {
+	console.log('Connected');
 });
 
-bot.on('ready', function() {
-	logger.info('Connected');
-});
-
-bot.on('message', function (user, userId, channelId, message, event) {
-	if (message === 'siema') {
-		bot.sendMessage({
-			to: channelId,
-			message: 'nara',
-		});
+bot.on('message', msg => {
+	if (msg.content === 'ping') {
+		msg.reply('Pong');
 	}
 });
 
+bot.login(auth.token);
