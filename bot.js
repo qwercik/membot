@@ -1,33 +1,51 @@
 const Discord = require('discord.js');
+const CommandParser = require('./CommandParser.js');
+const ActionsHandler = require('./ActionsHandler.js');
 const auth = require('./auth.json');
 const memes = require('./memes.json');
 
-class Command {
-	constructor(message) {
-		this.name = "";
-		this.action = "";
-		this.arguments = [];
-
-		this.parseMessage(message);	
-	}
-
-	parseMessage(message) {
-		const parts = message.split(' ');
-		
-		if (parts.length >= 1) {
-			this.name = parts[0];
+const actionsHandler = new ActionsHandler();
+actionsHandler
+	.addAction({
+		prefix: '!',
+		command: 'membot',
+		action: 'list',
+		description: 'Print all memes\' names',
+		arguments: [],
+		callback: function(parsed) {
+			const memesList = memes.memes.map(el => el.name).join(', ');
+			parsed.message.channel.send(`Memes list: ${memesList}`);
 		}
+	})
+	.addAction({
+		prefix: '!',
+		command: 'membot',
+		action: 'show',
+		description: 'Show the specific meme',
+		arguments: [
+			{name: 'meme', pattern: /^\S+$/}
+		],
+		callback: function(parsed) {
+			const channel = parsed.message.channel;
 
-		if (parts.length >= 2) {
-			this.action = parts[1];
+			const memeName = parsed.arguments[0];
+			const meme = memes.memes.find(el => el.name === memeName);
+
+			if (!meme) {
+				channel.send('Such meme doesn\'t exist! Check memes\'s list.');
+				return;
+			}
+
+			channel.send({
+				files: [{
+					attachment: meme.path,
+					name: meme.path,
+				}],
+			}).catch(err => {
+				channel.send('Meme loading error. Notify the bot\'s owner about it');
+			});
 		}
-
-		for (let i = 2; i < parts.length; ++i) {
-			this.arguments.push(parts[i]);
-		}
-	}
-}
-
+	});
 
 const bot = new Discord.Client();
 
@@ -35,46 +53,10 @@ bot.on('ready', () => {
 	console.log('Connected');
 });
 
-bot.on('message', msg => {
-	const channel = msg.channel;
-	const command = new Command(msg.content);
-
-	if (command.name === '!membot') {
-		switch (command.action) {
-			case 'list':
-				const memesList = memes.memes.map(el => el.name).join(', ');
-				channel.send(`Memes list: ${memesList}`);
-				break;
-
-			case 'show':
-				if (command.arguments.length != 1) {
-					msg.reply('Incorrect usage! See !membot help.');
-					break;
-				}
-
-				const memeName = command.arguments[0];
-				const meme = memes.memes.find(el => el.name === memeName);
-				
-				if (!meme) {
-					msg.reply('Such meme doesn\'t exist! Check memes\'s list here: !membot list');
-					break;
-				}
-
-				channel.send({
-					files: [{
-						attachment: meme.path,
-						name: meme.path,
-					}],
-				}).catch(err => {
-					msg.reply('Meme loading error. Notify the bot\'s owner about it.');
-				});
-
-				break;
-
-			default:
-				msg.reply('Incorrect action. Check !membot help');
-		}
-	}
+bot.on('message', message => {
+	const channel = message.channel;
+	const parsedMessage = CommandParser.parse(message, '!');
+	actionsHandler.handle(parsedMessage);
 });
 
 bot.login(auth.token);
