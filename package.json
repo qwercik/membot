@@ -1,0 +1,8 @@
+{
+	"name": "membot",
+	"version": "1.0.0",
+	"description": "Bot that generate memes",
+	"main": "bot.js",
+	"author": "Eryk Andrzejewski",
+	"dependencies": {}
+}
