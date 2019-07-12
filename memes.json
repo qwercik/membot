@@ -1,0 +1,7 @@
+{
+	"memes": [
+		{"name": "komor", "path": "assets/komor.jpg"},
+		{"name": "nosacz-1", "path": "assets/nosacz-1.jpg"},
+		{"name": "nosacz-2", "path": "assets/nosacz-2.jpg"}
+	]
+}
