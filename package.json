@@ -4,5 +4,8 @@
 	"description": "Bot that generate memes",
 	"main": "bot.js",
 	"author": "Eryk Andrzejewski",
-	"dependencies": {}
+	"dependencies": {
+		"discord.io": "^2.5.3",
+		"winston": "^3.2.1"
+	}
 }
