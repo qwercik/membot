@@ -5,6 +5,7 @@
 	"main": "bot.js",
 	"author": "Eryk Andrzejewski",
 	"dependencies": {
+		"canvas": "^2.5.0",
 		"discord-command-parser": "^1.2.1",
 		"discord.js": "^11.5.1"
 	}
