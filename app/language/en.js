@@ -8,4 +8,5 @@ module.exports = {
 	"action_show_description": "Show the specific meme",
 	"unknown_command_error": "Unknown command",
 	"incorrect_usage_error": "Incorrect usage",
+	"localization_file_not_exist_error": "Localization file doesn\'t exist. Check whether you set language field in config/config.json correctly",
 };

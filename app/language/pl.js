@@ -8,4 +8,5 @@ module.exports = {
 	"action_show_description": "Pokaż konkretnego mema",
 	"unknown_command_error": "Nieznana komenda",
 	"incorrect_usage_error": "Niepoprawne użycie",
+	"localization_file_not_exist_error": "Plik lokalizacji językowej nie istnieje. Sprawdź, czy ustawiłeś pole language w pliku config/config.json poprawnie",
 };
