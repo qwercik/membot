@@ -4,6 +4,9 @@
 	"description": "Bot that generate memes",
 	"main": "bot.js",
 	"author": "Eryk Andrzejewski",
+	"scripts": {
+		"start": "node bot.js"
+	},
 	"dependencies": {
 		"app-module-path": "^2.2.0",
 		"canvas": "^2.5.0",
