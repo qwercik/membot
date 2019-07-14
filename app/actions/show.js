@@ -11,7 +11,7 @@ module.exports = {
 	callback: function(parsed) {
 		const channel = parsed.message.channel;
 
-		const memeName = parsed.arguments[0];
+		const [memeName] = parsed.arguments;
 		const meme = memes.memes.find(el => el.name === memeName);
 
 		if (!meme) {
@@ -21,7 +21,7 @@ module.exports = {
 
 		channel.send({
 			files: [{
-				attachment: meme.path,
+				attachment: `assets/${meme.path}`,
 				name: meme.path,
 			}],
 		}).catch(err => {
