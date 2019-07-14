@@ -25,7 +25,11 @@ module.exports = {
 			return;
 		}
 		
-		const image = await loadImage(meme.path);
+		const image = await loadImage(meme.path).catch(() => {
+			channel.send('Meme loading error. Notify the bot\'s owner about it');
+			return;
+		});
+
 		const canvas = createCanvas(image.width, image.height);
 		const ctx = canvas.getContext('2d');
 
