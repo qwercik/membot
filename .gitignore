@@ -1,4 +1,4 @@
-auth.json
+config/config.json
 node_modules/
 
 *.swp
