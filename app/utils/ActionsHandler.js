@@ -1,18 +1,3 @@
-/* Action structure
- *
- * {
- * 		"prefix": "sth",
- * 		"command": "sth",
- * 		"action": "sth",
- * 		"description": "sth",
- * 		"arguments: [
- *			{"name": "sth", "pattern": "//"},
- *			{"name": "sth", "pattern": "//"},
- * 		],
- *		"callback": func,
- * }
- **/
-
 module.exports = class ActionsHandler {
 	constructor() {
 		this.actions = [];

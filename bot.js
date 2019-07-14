@@ -1,16 +1,17 @@
-const Discord = require('discord.js');
-const CommandParser = require('./CommandParser.js');
-const ActionsHandler = require('./ActionsHandler.js');
-const { createCanvas, loadImage } = require('canvas');
+require('app-module-path/register');
 
-const auth = require('./auth.json');
-const memes = require('./memes.json');
+const Discord = require('discord.js');
+
+const CommandParser = require('app/utils/CommandParser');
+const ActionsHandler = require('app/utils/ActionsHandler');
+
+const auth = require('config/auth.json');
 
 const actionsHandler = new ActionsHandler();
 actionsHandler
-	.addAction(require('./actions/list.js'))
-	.addAction(require('./actions/show.js'))
-	.addAction(require('./actions/generate.js'));
+	.addAction(require('app/actions/list'))
+	.addAction(require('app/actions/show'))
+	.addAction(require('app/actions/generate'));
 
 const bot = new Discord.Client();
 
@@ -19,7 +20,6 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
-	const channel = message.channel;
 	const parsedMessage = CommandParser.parse(message, '!');
 	actionsHandler.handle(parsedMessage);
 });

@@ -1,5 +1,5 @@
-const memes = require('./../memes.json');
 const { createCanvas, loadImage } = require('canvas');
+const memes = require('config/memes.json');
 
 module.exports = {
 	prefix: '!',

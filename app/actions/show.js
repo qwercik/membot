@@ -1,4 +1,4 @@
-const memes = require('./../memes.json');
+const memes = require('config/memes.json');
 
 module.exports = {
 	prefix: '!',
