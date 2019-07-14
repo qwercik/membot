@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const CommandParser = require('app/utils/CommandParser');
 const ActionsHandler = require('app/utils/ActionsHandler');
 
-const auth = require('config/auth.json');
+const config = require('config/config.json');
 const language = require('app/language');
 
 const actionsHandler = new ActionsHandler();
@@ -25,4 +25,4 @@ bot.on('message', message => {
 	actionsHandler.handle(parsedMessage);
 });
 
-bot.login(auth.token);
+bot.login(config.token);
