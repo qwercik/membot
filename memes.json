@@ -1,8 +1,18 @@
 {
 	"memes": [
-		{"name": "komor", "path": "assets/komor.jpg"},
+		{"name": "komorowski", "path": "assets/komorowski.jpg"},
 		{"name": "nosacz-1", "path": "assets/nosacz-1.jpg"},
 		{"name": "nosacz-2", "path": "assets/nosacz-2.jpg"},
-		{"name": "dudeł", "path": "assets/dudeł.jpg"}
+		{"name": "nosacz-3", "path": "assets/nosacz-3.jpg"},
+		{"name": "nosacz-4", "path": "assets/nosacz-4.jpg"},
+		{"name": "duda-1", "path": "assets/duda-1.jpg"},
+		{"name": "duda-2", "path": "assets/duda-2.jpg"},
+		{"name": "wałęsa", "path": "assets/wałęsa.jpg"},
+		{"name": "kwaśniewski", "path": "assets/kwaśniewski.jpg"},
+		{"name": "bieszczady", "path": "assets/bieszczady.jpg"},
+		{"name": "pechowiec-brian", "path": "assets/pechowiec-brian.png"},
+		{"name": "morawiecki-gitara", "path": "assets/morawiecki-gitara.jpg"},
+		{"name": "kaczyński-tablet", "path": "assets/kaczyński-tablet.jpg"},
+		{"name": "braun", "path": "assets/braun.png"}
 	]
 }
