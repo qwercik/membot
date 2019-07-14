@@ -26,7 +26,7 @@ module.exports = {
 			return;
 		}
 		
-		const image = await loadImage(meme.path).catch(() => {
+		const image = await loadImage(`assets/${meme.path}`).catch(() => {
 			channel.send(language["meme_file_loading_error"]);
 			return;
 		});
