@@ -7,12 +7,21 @@
 		{"name": "nosacz-4", "path": "assets/nosacz-4.jpg"},
 		{"name": "duda-1", "path": "assets/duda-1.jpg"},
 		{"name": "duda-2", "path": "assets/duda-2.jpg"},
+		{"name": "duda-3", "path": "assets/duda-3.gif"},
 		{"name": "wałęsa", "path": "assets/wałęsa.jpg"},
 		{"name": "kwaśniewski", "path": "assets/kwaśniewski.jpg"},
 		{"name": "bieszczady", "path": "assets/bieszczady.jpg"},
 		{"name": "pechowiec-brian", "path": "assets/pechowiec-brian.png"},
 		{"name": "morawiecki-gitara", "path": "assets/morawiecki-gitara.jpg"},
 		{"name": "kaczyński-tablet", "path": "assets/kaczyński-tablet.jpg"},
-		{"name": "braun", "path": "assets/braun.png"}
+		{"name": "braun", "path": "assets/braun.png"},
+		{"name": "dziadek", "path": "assets/dziadek.jpg"},
+		{"name": "karol-krawczyk-1", "path": "assets/karol-krawczyk-1.png"},
+		{"name": "karol-krawczyk-2", "path": "assets/karol-krawczyk-2.png"},
+		{"name": "ciocia-jadzia", "path": "assets/ciocia-jadzia.png"},
+		{"name": "karol-krawczyk-wkurzony", "path": "assets/karol-krawczyk-wkurzony.png"},
+		{"name": "alina-facepalm", "path": "assets/alina-facepalm.png"},
+		{"name": "comandeer", "path": "assets/comandeer.jpg"}
+
 	]
 }
