@@ -19,9 +19,10 @@
 		{"name": "karol-krawczyk-1", "path": "assets/karol-krawczyk-1.png"},
 		{"name": "karol-krawczyk-2", "path": "assets/karol-krawczyk-2.png"},
 		{"name": "ciocia-jadzia", "path": "assets/ciocia-jadzia.png"},
+		{"name": "karol-krawczyk-śmiech", "path": "assets/karol-krawczyk-śmiech.png"},
 		{"name": "karol-krawczyk-wkurzony", "path": "assets/karol-krawczyk-wkurzony.png"},
+		{"name": "kurski-profesor", "path": "assets/kurski-profesor.png"},
 		{"name": "alina-facepalm", "path": "assets/alina-facepalm.png"},
 		{"name": "comandeer", "path": "assets/comandeer.jpg"}
-
 	]
 }
