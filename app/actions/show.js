@@ -1,10 +1,11 @@
 const memes = require('config/memes.json');
+const language = require('app/language');
 
 module.exports = {
 	prefix: '!',
 	command: 'membot',
 	action: 'show',
-	description: 'Show the specific meme',
+	description: language["action_show_description"],
 	arguments: [
 		{name: 'memeName', pattern: /^(?!\s*$).+/},
 	],
@@ -15,7 +16,7 @@ module.exports = {
 		const meme = memes.memes.find(el => el.name === memeName);
 
 		if (!meme) {
-			channel.send('Such meme doesn\'t exist! Check memes\'s list.');
+			channel.send(language["meme_not_registered_in_config"]);
 			return;
 		}
 
@@ -25,7 +26,7 @@ module.exports = {
 				name: meme.path,
 			}],
 		}).catch(err => {
-			channel.send('Meme loading error. Notify the bot\'s owner about it');
+			channel.send(language["meme_file_loading_error"]);
 		});
 	}
 };

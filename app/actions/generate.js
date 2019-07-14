@@ -1,11 +1,12 @@
 const { createCanvas, loadImage } = require('canvas');
 const memes = require('config/memes.json');
+const language = require('app/language');
 
 module.exports = {
 	prefix: '!',
 	command: 'membot',
 	action: 'generate',
-	description: 'Generate your own meme',
+	description: language["action_generate_description"],
 	arguments: [
 		{name: 'memeName', pattern: /^(?!\s*$).+/},
 		{name: 'topText', pattern: /^.*$/},
@@ -21,12 +22,12 @@ module.exports = {
 
 		const meme = memes.memes.find(el => el.name === memeName);
 		if (!meme) {
-			channel.send('Such meme doesn\'t exist! Check memes\'s list.');
+			channel.send(language["meme_not_registered_in_config"]);
 			return;
 		}
 		
 		const image = await loadImage(meme.path).catch(() => {
-			channel.send('Meme loading error. Notify the bot\'s owner about it');
+			channel.send(language["meme_file_loading_error"]);
 			return;
 		});
 
@@ -54,7 +55,7 @@ module.exports = {
 				attachment: canvas.createJPEGStream(),
 			}],
 		}).catch(err => {
-			channel.send('Meme loading error. Notify the bot\'s owner about it');
+			channel.send(language["meme_file_loading_error"]);
 		});
 	}
 };

@@ -6,6 +6,7 @@ const CommandParser = require('app/utils/CommandParser');
 const ActionsHandler = require('app/utils/ActionsHandler');
 
 const auth = require('config/auth.json');
+const language = require('app/language');
 
 const actionsHandler = new ActionsHandler();
 actionsHandler
@@ -16,7 +17,7 @@ actionsHandler
 const bot = new Discord.Client();
 
 bot.on('ready', () => {
-	console.log('Connected');
+	console.log(language["connected_info"]);
 });
 
 bot.on('message', message => {
