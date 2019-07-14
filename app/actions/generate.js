@@ -20,7 +20,7 @@ module.exports = {
 		const bottomText = parsed.arguments[2] ? parsed.arguments[2] : '';
 
 
-		const meme = memes.memes.find(el => el.name === memeName);
+		const meme = memes.find(el => el.name === memeName);
 		if (!meme) {
 			channel.send(language["meme_not_registered_in_config"]);
 			return;
