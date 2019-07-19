@@ -9,5 +9,7 @@
 	"unknown_command_error": "Unknown command",
 	"incorrect_usage_error": "Incorrect usage",
 	"localization_file_not_exist_error": "Localization file doesn't exist. Check whether you set language field in config/config.json correctly",
-	"memes_register_file_load_error": "Couldn't load memes register file"
+	"memes_register_load_error": "Couldn't load memes register file",
+	"memes_register_syntax_error": "There's a syntax error in memes register file",
+	"memes_register_write_error": "Couldn't write to memes register file"
 }

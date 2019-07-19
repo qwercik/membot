@@ -1,4 +1,4 @@
-const memes = require('config/memes.json');
+const memesStorage = require('app/utils/MemesStorage');
 const language = require('app/language');
 
 module.exports = {
@@ -9,14 +9,18 @@ module.exports = {
 	arguments: [
 		{name: 'memeName', pattern: /^(?!\s*$).+/},
 	],
-	callback: function(parsed) {
+	callback: async function(parsed) {
 		const channel = parsed.message.channel;
+		await memesStorage.pull().catch(() => {
+			channel.send(language['memes_register_load_error']);
+			return;
+		});
 
 		const [memeName] = parsed.arguments;
-		const meme = memes.find(el => el.name === memeName);
+		const meme = memesStorage.register.find(el => el.name === memeName);
 
 		if (!meme) {
-			channel.send(language["meme_not_registered_in_config"]);
+			channel.send(language['meme_not_registered_in_config']);
 			return;
 		}
 
@@ -26,7 +30,7 @@ module.exports = {
 				name: meme.path,
 			}],
 		}).catch(err => {
-			channel.send(language["meme_file_loading_error"]);
+			channel.send(language['meme_file_loading_error']);
 		});
 	}
 };

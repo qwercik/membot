@@ -9,5 +9,7 @@
 	"unknown_command_error": "Nieznana komenda",
 	"incorrect_usage_error": "Niepoprawne użycie",
 	"localization_file_not_exist_error": "Plik lokalizacji językowej nie istnieje. Sprawdź, czy ustawiłeś pole language w pliku config/config.json poprawnie",
-	"memes_register_file_load_error": "Nie można załadować pliku dziennika memów"
+	"memes_register_file_load_error": "Nie można załadować pliku dziennika memów",
+	"memes_register_syntax_error": "Plik dziennika memów zawiera błąd składni",
+	"memes_register_write_error": "Nie można zapisać pliku dziennika memów"
 }

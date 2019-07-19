@@ -1,5 +1,5 @@
 const { createCanvas, loadImage } = require('canvas');
-const memes = require('config/memes.json');
+const memesStorage = require('app/utils/MemesStorage');
 const language = require('app/language');
 
 module.exports = {
@@ -14,20 +14,24 @@ module.exports = {
 	],
 	callback: async function(parsed) {
 		const channel = parsed.message.channel;
-		
+		await memesStorage.pull().catch(() => {
+			channel.send(language['memes_register_load_error']);
+			return;
+		});
+
 		const memeName = parsed.arguments[0];
 		const topText = parsed.arguments[1] ? parsed.arguments[1] : '';
 		const bottomText = parsed.arguments[2] ? parsed.arguments[2] : '';
 
 
-		const meme = memes.find(el => el.name === memeName);
+		const meme = memesStorage.register.find(el => el.name === memeName);
 		if (!meme) {
-			channel.send(language["meme_not_registered_in_config"]);
+			channel.send(language['meme_not_registered_in_config']);
 			return;
 		}
 		
 		const image = await loadImage(`assets/${meme.path}`).catch(() => {
-			channel.send(language["meme_file_loading_error"]);
+			channel.send(language['meme_file_loading_error']);
 			return;
 		});
 
@@ -55,7 +59,7 @@ module.exports = {
 				attachment: canvas.createJPEGStream(),
 			}],
 		}).catch(err => {
-			channel.send(language["meme_file_loading_error"]);
+			channel.send(language['meme_file_loading_error']);
 		});
 	}
 };
