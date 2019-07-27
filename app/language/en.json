@@ -11,5 +11,8 @@
 	"localization_file_not_exist_error": "Localization file doesn't exist. Check whether you set language field in config/config.json correctly",
 	"memes_register_load_error": "Couldn't load memes register file",
 	"memes_register_syntax_error": "There's a syntax error in memes register file",
-	"memes_register_write_error": "Couldn't write to memes register file"
+	"memes_register_write_error": "Couldn't write to memes register file",
+	"action_new-meme_description": "Add new meme",
+	"new_meme_created": "New meme was created",
+	"new_meme_not_created_error": "New meme was not created"
 }

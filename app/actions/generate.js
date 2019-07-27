@@ -14,10 +14,6 @@ module.exports = {
 	],
 	callback: async function(parsed) {
 		const channel = parsed.message.channel;
-		await memesStorage.pull().catch(() => {
-			channel.send(language['memes_register_load_error']);
-			return;
-		});
 
 		const memeName = parsed.arguments[0];
 		const topText = parsed.arguments[1] ? parsed.arguments[1] : '';
