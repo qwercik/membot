@@ -5,7 +5,7 @@
 	"main": "bot.js",
 	"author": "Eryk Andrzejewski",
 	"scripts": {
-		"start": "node bot.js"
+		"start": "node main.js"
 	},
 	"dependencies": {
 		"app-module-path": "^2.2.0",
