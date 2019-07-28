@@ -1,7 +1,7 @@
 const memesStorage = require('app/utils/MemesStorage');
 const language = require('app/language');
 
-class ActionsHandler {
+module.exports = class ActionsHandler {
 	constructor() {
 		this.actions = [];
 	}
@@ -41,7 +41,3 @@ class ActionsHandler {
 	}
 }
 
-const actionsHandler = new ActionsHandler();
-
-module.exports = actionsHandler;
-module.exports.ActionsHandler = ActionsHandler;

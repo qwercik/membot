@@ -1,4 +1,5 @@
 const fs = require('fs');
+const config = require('config/config.json');
 const language = require('app/language');
 
 class MemesStorage {
@@ -55,6 +56,8 @@ class MemesStorage {
 	}
 }
 
-const memesStorage = new MemesStorage('config/memes.json', 'assets/');
+const memesStorage = new MemesStorage(config.memesRegisterPath, config.memesFilesPath);
+memesStorage.MemesStorage = MemesStorage;
+
 module.exports = memesStorage;
-module.exports.MemesStorage = MemesStorage;
+
