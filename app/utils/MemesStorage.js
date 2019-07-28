@@ -8,7 +8,7 @@ class MemesStorage {
 		this.imagesDirectoryPath = imagesDirectoryPath;
 	}
 	
-	async pull() {
+	pull() {
 		return new Promise((resolve, reject) => {
 			fs.readFile(this.registerPath, (error, data) => {
 				if (error) {
@@ -26,7 +26,7 @@ class MemesStorage {
 		});
 	}
 	
-	async flush() {
+	flush() {
 		return new Promise((resolve, reject) => {
 			fs.writeFile(this.registerPath, JSON.stringify(this.register), error => {
 				if (error) {
