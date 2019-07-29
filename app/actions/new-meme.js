@@ -5,7 +5,6 @@ const memesStorage = require('app/utils/MemesStorage');
 const language = require('app/language');
 
 module.exports = {
-	prefix: '!',
 	command: 'membot',
 	action: 'new-meme',
 	description: language["action_new-meme_description"],

@@ -26,6 +26,7 @@ module.exports = class ActionsHandler {
 			channel.send(language["unknown_command_error"]);
 			return;
 		}
+		console.log(action);
 		
 		const argumentsObject = {};
 
