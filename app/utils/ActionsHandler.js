@@ -19,14 +19,13 @@ module.exports = class ActionsHandler {
 		}
 
 		const action = this.actions.find(el =>
-			el.command === parsed.command && el.action === parsed.action
+			el.command.includes(parsed.command) && el.action.includes(parsed.action)
 		);
 		
 		if (!action) {
 			channel.send(language["unknown_command_error"]);
 			return;
 		}
-		console.log(action);
 		
 		const argumentsObject = {};
 

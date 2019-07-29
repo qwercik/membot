@@ -2,8 +2,8 @@ const memesStorage = require('app/utils/MemesStorage');
 const language = require('app/language');
 
 module.exports = {
-	command: 'membot',
-	action: 'list',
+	command: ['membot', 'm'],
+	action: ['list', 'l'],
 	description: language["action_list_description"],
 	arguments: [],
 	callback: async function(parsed) {
