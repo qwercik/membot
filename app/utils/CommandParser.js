@@ -8,7 +8,7 @@ exports.parse = function(message, prefix) {
 		prefix: parsed.prefix,
 		command: parsed.command,
 		action: parsed.arguments[0],
-		arguments: parsed.arguments.slice(1),
+		arguments: parsed.arguments.slice(1).map(arg => arg ? arg : ''),
 		message: parsed.message,
 	};
 }
