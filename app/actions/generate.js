@@ -15,9 +15,9 @@ module.exports = {
 	callback: async function(parsed) {
 		const channel = parsed.message.channel;
 
-		const memeName = parsed.arguments[0];
-		const topText = parsed.arguments[1] ? parsed.arguments[1] : '';
-		const bottomText = parsed.arguments[2] ? parsed.arguments[2] : '';
+		const memeName = parsed.arguments['memeName'];
+		const topText = parsed.arguments['topText'] ? parsed.arguments['topText'] : '';
+		const bottomText = parsed.arguments['bottomText'] ? parsed.arguments['bottomText'] : '';
 
 
 		const meme = memesStorage.register.find(el => el.name === memeName);

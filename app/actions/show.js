@@ -12,7 +12,7 @@ module.exports = {
 	callback: async function(parsed) {
 		const channel = parsed.message.channel;
 
-		const [memeName] = parsed.arguments;
+		const {memeName} = parsed.arguments;
 		const meme = memesStorage.register.find(el => el.name === memeName);
 
 		if (!meme) {

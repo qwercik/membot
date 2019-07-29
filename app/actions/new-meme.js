@@ -16,7 +16,7 @@ module.exports = {
 	callback: async function(parsed) {
 		const channel = parsed.message.channel;
 
-		const [memeName, memeUrl] = parsed.arguments;
+		const {memeName, memeUrl} = parsed.arguments;
 
 		request.get({
 			url: memeUrl,

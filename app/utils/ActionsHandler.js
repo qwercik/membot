@@ -27,7 +27,10 @@ module.exports = class ActionsHandler {
 			return;
 		}
 		
+		const argumentsObject = {};
+
 		for (let index = 0; index < action.arguments.length; ++index) {
+			const name = action.arguments[index].name;
 			const pattern = action.arguments[index].pattern;
 			const value = parsed.arguments[index] ? parsed.arguments[index] : '';
 
@@ -35,7 +38,11 @@ module.exports = class ActionsHandler {
 				channel.send(language["incorrect_usage_error"]);
 				return;
 			}
+
+			argumentsObject[name] = value;
 		}
+
+		parsed.arguments = argumentsObject;
 
 		action.callback(parsed);
 	}
