@@ -14,5 +14,8 @@
 		"discord.js": "^11.5.1",
 		"esm": "^3.2.25",
 		"request": "^2.88.0"
+	},
+	"devDependencies": {
+		"standard": "^13.1.0"
 	}
 }

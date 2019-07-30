@@ -1,50 +1,48 @@
-import memesStorage from 'app/utils/MemesStorage';
-import language from 'app/language';
+import language from 'app/language'
 
 export default class ActionsHandler {
-	constructor() {
-		this.actions = [];
-	}
+  constructor () {
+    this.actions = []
+  }
 
-	addAction(action) {
-		this.actions.push(action);
-		return this;
-	}
+  addAction (action) {
+    this.actions.push(action)
+    return this
+  }
 
-	handle(parsed) {
-		const channel = parsed.message.channel;
+  handle (parsed) {
+    const channel = parsed.message.channel
 
-		if (!parsed.isCommand) {
-			return;
-		}
+    if (!parsed.isCommand) {
+      return
+    }
 
-		const action = this.actions.find(el =>
-			el.command.includes(parsed.command) && el.action.includes(parsed.action)
-		);
-		
-		if (!action) {
-			channel.send(language["unknown_command_error"]);
-			return;
-		}
-		
-		const argumentsObject = {};
+    const action = this.actions.find(el =>
+      el.command.includes(parsed.command) && el.action.includes(parsed.action)
+    )
 
-		for (let index = 0; index < action.arguments.length; ++index) {
-			const name = action.arguments[index].name;
-			const pattern = action.arguments[index].pattern;
-			const value = parsed.arguments[index] ? parsed.arguments[index] : '';
+    if (!action) {
+      channel.send(language['unknown_command_error'])
+      return
+    }
 
-			if (!pattern.test(value)) {
-				channel.send(language["incorrect_usage_error"]);
-				return;
-			}
+    const argumentsObject = {}
 
-			argumentsObject[name] = value;
-		}
+    for (let index = 0; index < action.arguments.length; ++index) {
+      const name = action.arguments[index].name
+      const pattern = action.arguments[index].pattern
+      const value = parsed.arguments[index] ? parsed.arguments[index] : ''
 
-		parsed.arguments = argumentsObject;
+      if (!pattern.test(value)) {
+        channel.send(language['incorrect_usage_error'])
+        return
+      }
 
-		action.callback(parsed);
-	}
+      argumentsObject[name] = value
+    }
+
+    parsed.arguments = argumentsObject
+
+    action.callback(parsed)
+  }
 }
-

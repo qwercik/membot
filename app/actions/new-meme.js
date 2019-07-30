@@ -1,44 +1,42 @@
-import request from 'request';
-import fs from 'fs';
+import request from 'request'
+import fs from 'fs'
 
-import memesStorage from 'app/utils/MemesStorage';
-import language from 'app/language';
+import memesStorage from 'app/utils/MemesStorage'
+import language from 'app/language'
 
 export default {
-	command: ['membot', 'm'],
-	action: ['new-meme', 'n'],
-	description: language["action_new-meme_description"],
-	arguments: [
-		{name: 'memeName', pattern: /^(?!\s*$).+/},
-		{name: 'memeUrl', pattern: /https?:\/\/(www\.)?[-a-za-z0-9@:%._\+~#=]{1,256}\.[a-za-z0-9()]{1,6}\b([-a-za-z0-9()@:%_\+.~#?&//=]*)/},
-	],
-	callback: async function(parsed) {
-		const channel = parsed.message.channel;
+  command: ['membot', 'm'],
+  action: ['new-meme', 'n'],
+  description: language['action_new-meme_description'],
+  arguments: [
+    { name: 'memeName', pattern: /^(?!\s*$).+/ },
+    { name: 'memeUrl', pattern: /https?:\/\/(www\.)?[-a-za-z0-9@:%._+~#=]{1,256}\.[a-za-z0-9()]{1,6}\b([-a-za-z0-9()@:%_+.~#?&//=]*)/ }
+  ],
+  callback: async function (parsed) {
+    const channel = parsed.message.channel
 
-		const {memeName, memeUrl} = parsed.arguments;
+    const { memeName, memeUrl } = parsed.arguments
 
-		request.get({
-			url: memeUrl,
-		})
-		.on('response', async response => {
-			const memePath = 'custom/' + memeName + '.' + response.headers['content-type'].split('/')[1];
-			response.pipe(fs.createWriteStream('assets/' + memePath));
+    request.get({
+      url: memeUrl
+    })
+      .on('response', async response => {
+        const memePath = 'custom/' + memeName + '.' + response.headers['content-type'].split('/')[1]
+        response.pipe(fs.createWriteStream('assets/' + memePath))
 
-			try {
-				await memesStorage.set({
-					name: memeName,
-					path: memePath,
-				});
-			} catch (error) {
-				channel.send(language['new_meme_not_created_error']);
-			}
+        try {
+          await memesStorage.set({
+            name: memeName,
+            path: memePath
+          })
+        } catch (error) {
+          channel.send(language['new_meme_not_created_error'])
+        }
 
-			channel.send(language['new_meme_created']);
-		})
-		.on('error', error => {
-			channel.send(error);
-			return;
-		});
-	}
-};
-
+        channel.send(language['new_meme_created'])
+      })
+      .on('error', error => {
+        channel.send(error)
+      })
+  }
+}
