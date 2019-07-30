@@ -1,6 +1,6 @@
-const DiscordCommandParser = require('discord-command-parser');
+import DiscordCommandParser from 'discord-command-parser';
 
-exports.parse = function(message, prefix) {
+function parse(message, prefix) {
 	const parsed = DiscordCommandParser.parse(message, prefix);
 	
 	return {
@@ -12,3 +12,5 @@ exports.parse = function(message, prefix) {
 		message: parsed.message,
 	};
 }
+
+export default {parse}

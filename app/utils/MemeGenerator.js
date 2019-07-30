@@ -1,8 +1,8 @@
-const { createCanvas, loadImage } = require('canvas');
-const language = require('app/language');
-const config = require('config/config.json');
+import {createCanvas, loadImage} from 'canvas';
+import language from 'app/language';
+import config from 'config/config.json';
 
-exports.generate = function(path, topText, bottomText) {
+function generate(path, topText, bottomText) {
 	return new Promise(async (resolve, reject) => {
 		const image = await loadImage(`${config.memesFilesPath}/${path}`)
 			.catch(() => {
@@ -31,3 +31,5 @@ exports.generate = function(path, topText, bottomText) {
 		resolve(canvas.createJPEGStream());
 	});
 };
+
+export default {generate};

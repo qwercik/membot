@@ -1,8 +1,8 @@
-const MemeGenerator = require('app/utils/MemeGenerator');
-const memesStorage = require('app/utils/MemesStorage');
-const language = require('app/language');
+import MemeGenerator from 'app/utils/MemeGenerator';
+import memesStorage from 'app/utils/MemesStorage';
+import language from 'app/language';
 
-module.exports = {
+export default {
 	command: ['membot', 'm'],
 	action: ['generate', 'g'],
 	description: language["action_generate_description"],

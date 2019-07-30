@@ -1,11 +1,16 @@
-const Discord = require('discord.js');
-const ActionsHandler = require('app/utils/ActionsHandler');
-const memesStorage = require('app/utils/MemesStorage');
-const CommandParser = require('app/utils/CommandParser');
-const language = require('app/language');
-const config = require('config/config.json');
+import Discord from 'discord.js';
+import ActionsHandler from 'app/utils/ActionsHandler';
+import memesStorage from 'app/utils/MemesStorage';
+import CommandParser from 'app/utils/CommandParser';
+import language from 'app/language';
+import config from 'config/config.json';
 
-module.exports = class Bot {
+import ListAction from 'app/actions/list';
+import ShowAction from 'app/actions/show';
+import GenerateAction from 'app/actions/generate';
+import NewMemeAction from 'app/actions/new-meme';
+
+export default class Bot {
 	constructor() {
 		this.setUpMemesStorage();
 		this.setUpActionsHandler();
@@ -19,14 +24,14 @@ module.exports = class Bot {
 			});
 	}
 
-	setUpActionsHandler() {
+	async setUpActionsHandler() {
 		this.actionsHandler = new ActionsHandler();
 
 		this.actionsHandler
-			.addAction(require('app/actions/list'))
-			.addAction(require('app/actions/show'))
-			.addAction(require('app/actions/generate'))
-			.addAction(require('app/actions/new-meme'))
+			.addAction(ListAction)
+			.addAction(ShowAction)
+			.addAction(GenerateAction)
+			.addAction(NewMemeAction)
 		;
 	}
 	

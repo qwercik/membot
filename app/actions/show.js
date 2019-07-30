@@ -1,7 +1,7 @@
-const memesStorage = require('app/utils/MemesStorage');
-const language = require('app/language');
+import memesStorage from 'app/utils/MemesStorage';
+import language from 'app/language';
 
-module.exports = {
+export default {
 	command: ['membot', 'm'],
 	action: ['show', 's'],
 	description: language["action_show_description"],

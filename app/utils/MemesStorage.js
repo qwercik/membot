@@ -1,6 +1,6 @@
-const fs = require('fs');
-const config = require('config/config.json');
-const language = require('app/language');
+import fs from 'fs';
+import config from 'config/config.json';
+import language from 'app/language';
 
 class MemesStorage {
 	constructor(registerPath, imagesDirectoryPath) {
@@ -59,5 +59,4 @@ class MemesStorage {
 const memesStorage = new MemesStorage(config.memesRegisterPath, config.memesFilesPath);
 memesStorage.MemesStorage = MemesStorage;
 
-module.exports = memesStorage;
-
+export default memesStorage;

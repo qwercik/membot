@@ -1,7 +1,7 @@
-const memesStorage = require('app/utils/MemesStorage');
-const language = require('app/language');
+import memesStorage from 'app/utils/MemesStorage';
+import language from 'app/language';
 
-module.exports = class ActionsHandler {
+export default class ActionsHandler {
 	constructor() {
 		this.actions = [];
 	}

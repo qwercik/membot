@@ -5,13 +5,14 @@
 	"main": "bot.js",
 	"author": "Eryk Andrzejewski",
 	"scripts": {
-		"start": "node main.js"
+		"start": "node -r esm -r app-module-path/cwd main.js"
 	},
 	"dependencies": {
 		"app-module-path": "^2.2.0",
 		"canvas": "^2.5.0",
 		"discord-command-parser": "^1.2.1",
 		"discord.js": "^11.5.1",
+		"esm": "^3.2.25",
 		"request": "^2.88.0"
 	}
 }
