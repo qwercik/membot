@@ -8,6 +8,7 @@ import ListAction from 'app/actions/list'
 import ShowAction from 'app/actions/show'
 import GenerateAction from 'app/actions/generate'
 import NewMemeAction from 'app/actions/new-meme'
+import RemoveMemeAction from 'app/actions/remove-meme'
 
 export default class Bot {
   constructor () {
@@ -23,6 +24,7 @@ export default class Bot {
       .addAction(ShowAction)
       .addAction(GenerateAction)
       .addAction(NewMemeAction)
+      .addAction(RemoveMemeAction)
   }
 
   setUpDiscordClient () {

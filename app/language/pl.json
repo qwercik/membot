@@ -19,5 +19,7 @@
   "new_meme_check_permissions_to_db_file_error": "Sprawdź uprawnienia do pliku bazy danych",
   "new_meme_unsupported_filetype_error": "Niewspierany typ pliku",
   "new_meme_resource_not_exist_error": "Zasób nie istnieje (kod HTTP inny niż 200)",
-  "new_meme_request_error": "Wykonanie zapytania nie powiodło się (brak komunikacji z hostem)"
+  "new_meme_request_error": "Wykonanie zapytania nie powiodło się (brak komunikacji z hostem)",
+  "action_remove-meme_description": "Usuń mema o podanej nazwie",
+  "meme_removed": "Mem został usunięty"
 }
