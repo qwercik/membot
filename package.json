@@ -5,7 +5,8 @@
 	"main": "bot.js",
 	"author": "Eryk Andrzejewski",
 	"scripts": {
-		"start": "node -r esm -r app-module-path/cwd main.js"
+		"start": "node -r esm -r app-module-path/cwd main.js",
+    "test": "standard"
 	},
 	"dependencies": {
 		"app-module-path": "^2.2.0",
