@@ -1,7 +1,7 @@
 import request from 'request'
 import fs from 'fs'
 
-import memesStorage from 'app/utils/MemesStorage'
+import db from 'app/db'
 import language from 'app/language'
 
 export default {
@@ -24,8 +24,16 @@ export default {
           return
         }
 
-        const fileType = response.headers['content-type'].split('/')[1]
-        const supportedFileTypes = ['jpeg', 'png', 'gif']
+        const contentType = response.headers['content-type']
+        let fileType = ''
+
+        if (contentType) {
+          fileType = response.headers['content-type'].split('/')[1]
+        } else {
+          fileType = memeUrl.split('.').pop().toLowerCase()
+        }
+
+        const supportedFileTypes = ['jpg', 'jpeg', 'png', 'gif']
         if (!supportedFileTypes.includes(fileType)) {
           channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_unsupported_filetype_error']}`)
           return
@@ -35,10 +43,9 @@ export default {
         response.pipe(fs.createWriteStream('assets/' + memePath))
 
         try {
-          await memesStorage.set({
-            name: memeName,
-            path: memePath
-          })
+          db.get('memes')
+            .push({ name: memeName, path: memePath })
+            .write()
         } catch (error) {
           channel.send(language['new_meme_not_created_error'])
           return

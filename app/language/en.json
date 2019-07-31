@@ -14,7 +14,7 @@
 	"memes_register_write_error": "Couldn't write to memes register file",
 	"action_new-meme_description": "Add new meme",
 	"new_meme_created": "New meme was created",
-	"new_meme_not_created_error": "New meme was not created",
+  "new_meme_not_created_error": "New meme was not created - check permissions to database file",
   "new_meme_unsupported_filetype_error": "Unsupported filetype",
   "new_meme_resource_not_exist_error": "The resource does not exist (HTTP status code different than 200)",
   "new_meme_request_error": "Request error (host not responding)"

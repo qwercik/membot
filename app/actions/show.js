@@ -1,4 +1,4 @@
-import memesStorage from 'app/utils/MemesStorage'
+import db from 'app/db'
 import language from 'app/language'
 
 export default {
@@ -12,7 +12,9 @@ export default {
     const channel = parsed.message.channel
 
     const { memeName } = parsed.arguments
-    const meme = memesStorage.register.find(el => el.name === memeName)
+    const meme = db.get('memes')
+      .find({ name: memeName })
+      .value()
 
     if (!meme) {
       channel.send(language['meme_not_registered_in_config'])

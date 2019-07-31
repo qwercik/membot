@@ -1,4 +1,5 @@
 config/config.json
+config/db.json
 node_modules/
 
 *.swp

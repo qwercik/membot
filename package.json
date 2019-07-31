@@ -6,7 +6,7 @@
 	"author": "Eryk Andrzejewski",
 	"scripts": {
 		"start": "node -r esm -r app-module-path/cwd main.js",
-    "test": "standard"
+		"test": "standard"
 	},
 	"dependencies": {
 		"app-module-path": "^2.2.0",
@@ -14,6 +14,7 @@
 		"discord-command-parser": "^1.2.1",
 		"discord.js": "^11.5.1",
 		"esm": "^3.2.25",
+		"lowdb": "^1.0.0",
 		"request": "^2.88.0"
 	},
 	"devDependencies": {

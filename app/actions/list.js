@@ -1,4 +1,4 @@
-import memesStorage from 'app/utils/MemesStorage'
+import db from 'app/db'
 import language from 'app/language'
 
 export default {
@@ -9,7 +9,11 @@ export default {
   callback: async function (parsed) {
     const channel = parsed.message.channel
 
-    const memesList = memesStorage.register.map(el => el.name).join(', ')
+    const memesList = db.get('memes')
+      .map('name')
+      .value()
+      .join(', ')
+
     channel.send(`${language['memes_list_info']}: ${memesList}`)
   }
 }

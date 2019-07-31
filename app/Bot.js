@@ -1,6 +1,5 @@
 import Discord from 'discord.js'
 import ActionsHandler from 'app/utils/ActionsHandler'
-import memesStorage from 'app/utils/MemesStorage'
 import CommandParser from 'app/utils/CommandParser'
 import language from 'app/language'
 import config from 'config/config.json'
@@ -12,16 +11,8 @@ import NewMemeAction from 'app/actions/new-meme'
 
 export default class Bot {
   constructor () {
-    this.setUpMemesStorage()
     this.setUpActionsHandler()
     this.setUpDiscordClient()
-  }
-
-  async setUpMemesStorage () {
-    await memesStorage.pull()
-      .catch(() => {
-        throw new Error('Coś się popsuło')
-      })
   }
 
   async setUpActionsHandler () {
