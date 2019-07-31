@@ -2,6 +2,9 @@ config/config.json
 config/db.json
 node_modules/
 
+assets/*
+!assets/.gitkeep
+
 *.swp
 *.swo
 *.swa
