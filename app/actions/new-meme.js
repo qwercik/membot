@@ -17,11 +17,21 @@ export default {
 
     const { memeName, memeUrl } = parsed.arguments
 
-    request.get({
-      url: memeUrl
-    })
+    request.get({ url: memeUrl })
       .on('response', async response => {
-        const memePath = 'custom/' + memeName + '.' + response.headers['content-type'].split('/')[1]
+        if (response.statusCode !== 200) {
+          channel.send(language['new_meme_resource_not_exist_error'])
+          return
+        }
+
+        const fileType = response.headers['content-type'].split('/')[1]
+        const supportedFileTypes = ['jpeg', 'png', 'gif']
+        if (!supportedFileTypes.includes(fileType)) {
+          channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_unsupported_filetype_error']}`)
+          return
+        }
+
+        const memePath = 'custom/' + memeName + '.' + fileType
         response.pipe(fs.createWriteStream('assets/' + memePath))
 
         try {
@@ -31,12 +41,13 @@ export default {
           })
         } catch (error) {
           channel.send(language['new_meme_not_created_error'])
+          return
         }
 
         channel.send(language['new_meme_created'])
       })
-      .on('error', error => {
-        channel.send(error)
+      .on('error', () => {
+        channel.send(language['new_meme_request_error'])
       })
   }
 }
