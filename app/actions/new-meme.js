@@ -47,7 +47,7 @@ export default {
             .push({ name: memeName, path: memePath })
             .write()
         } catch (error) {
-          channel.send(language['new_meme_not_created_error'])
+          channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_check_permissions_to_db_file_error']}`)
           return
         }
 
