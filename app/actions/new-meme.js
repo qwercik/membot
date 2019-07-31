@@ -1,7 +1,7 @@
 import request from 'request'
 import fs from 'fs'
 
-import config from 'config/config.json';
+import config from 'config/config.json'
 import db from 'app/db'
 import language from 'app/language'
 
@@ -17,6 +17,15 @@ export default {
     const channel = parsed.message.channel
 
     const { memeName, memeUrl } = parsed.arguments
+
+    const meme = db.get('memes')
+      .find({ name: memeName })
+      .value()
+
+    if (meme !== undefined) {
+      channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_meme_with_the_given_name_exists']}`)
+      return
+    }
 
     request.get({ url: memeUrl })
       .on('response', async response => {
