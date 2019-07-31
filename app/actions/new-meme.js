@@ -1,6 +1,7 @@
 import request from 'request'
 import fs from 'fs'
 
+import config from 'config/config.json';
 import db from 'app/db'
 import language from 'app/language'
 
@@ -39,8 +40,8 @@ export default {
           return
         }
 
-        const memePath = 'custom/' + memeName + '.' + fileType
-        response.pipe(fs.createWriteStream('assets/' + memePath))
+        const memePath = memeName + '.' + fileType
+        response.pipe(fs.createWriteStream(config['memesFilesPath'] + memePath))
 
         try {
           db.get('memes')
