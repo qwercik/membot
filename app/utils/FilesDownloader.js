@@ -48,12 +48,17 @@ function download (url, saveDirectory, nameWithoutExtension) {
         const filePath = forceEndingWith(saveDirectory, '/') + fileName
 
         try {
-          response.pipe(fs.createWriteStream(filePath))
+          const stream = response.pipe(fs.createWriteStream(filePath))
+          stream.on('finish', () => {
+            resolve({
+              name: fileName,
+              path: filePath,
+              type: fileType
+            })
+          })
         } catch (error) {
           reject(language['no_permissions_to_save_downloaded_file'])
         }
-
-        resolve(fileName)
       })
   })
 }

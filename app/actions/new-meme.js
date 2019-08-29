@@ -25,9 +25,9 @@ export default {
       return
     }
 
-    let memePath
+    let file
     try {
-      memePath = await FilesDownloader.download(memeUrl, config['memesFilesPath'], memeName)
+      file = await FilesDownloader.download(memeUrl, config['memesFilesPath'], memeName)
     } catch (error) {
       channel.send(error)
       return
@@ -35,7 +35,7 @@ export default {
 
     try {
       db.get('memes')
-        .push({ name: memeName, path: memePath })
+        .push({ name: memeName, path: file.name })
         .write()
     } catch (error) {
       channel.send(`${language['new_meme_not_created_error']} - ${language['check_permissions_to_db_file_error']}`)
