@@ -15,11 +15,12 @@
   "action_new-meme_description": "Dodaj nowego mema",
   "new_meme_created": "Nowy mem został dodany",
   "new_meme_not_created_error": "Nowy mem nie został utworzony",
-  "new_meme_meme_with_the_given_name_exists": "Mem o podanej nazwie już istnieje",
-  "new_meme_check_permissions_to_db_file_error": "Sprawdź uprawnienia do pliku bazy danych",
-  "new_meme_unsupported_filetype_error": "Niewspierany typ pliku",
-  "new_meme_resource_not_exist_error": "Zasób nie istnieje (kod HTTP inny niż 200)",
-  "new_meme_request_error": "Wykonanie zapytania nie powiodło się (brak komunikacji z hostem)",
+  "meme_with_the_given_name_exists": "Mem o podanej nazwie już istnieje",
+  "check_permissions_to_db_file_error": "Sprawdź uprawnienia do pliku bazy danych",
+  "unsupported_filetype_error": "Niewspierany typ pliku",
+  "resource_not_exist_error": "Zasób nie istnieje (kod HTTP inny niż 200)",
+  "request_error": "Wykonanie zapytania nie powiodło się (brak komunikacji z hostem)",
   "action_remove-meme_description": "Usuń mema o podanej nazwie",
-  "meme_removed": "Mem został usunięty"
+  "meme_removed": "Mem został usunięty",
+  "no_permissions_to_save_downloaded_file": "You have not permissions to save downloaded file"
 }

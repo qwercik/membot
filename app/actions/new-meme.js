@@ -1,9 +1,7 @@
-import request from 'request'
-import fs from 'fs'
-
 import config from 'config/config.json'
 import db from 'app/db'
 import language from 'app/language'
+import FilesDownloader from 'app/utils/FilesDownloader'
 
 export default {
   command: ['membot', 'm'],
@@ -23,48 +21,27 @@ export default {
       .value()
 
     if (meme !== undefined) {
-      channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_meme_with_the_given_name_exists']}`)
+      channel.send(`${language['new_meme_not_created_error']} - ${language['meme_with_the_given_name_exists']}`)
       return
     }
 
-    request.get({ url: memeUrl })
-      .on('response', async response => {
-        if (response.statusCode !== 200) {
-          channel.send(language['new_meme_resource_not_exist_error'])
-          return
-        }
+    let memePath
+    try {
+      memePath = await FilesDownloader.download(memeUrl, config['memesFilesPath'], memeName)
+    } catch (error) {
+      channel.send(error)
+      return
+    }
 
-        const contentType = response.headers['content-type']
-        let fileType = ''
+    try {
+      db.get('memes')
+        .push({ name: memeName, path: memePath })
+        .write()
+    } catch (error) {
+      channel.send(`${language['new_meme_not_created_error']} - ${language['check_permissions_to_db_file_error']}`)
+      return
+    }
 
-        if (contentType) {
-          fileType = response.headers['content-type'].split('/')[1]
-        } else {
-          fileType = memeUrl.split('.').pop().toLowerCase()
-        }
-
-        const supportedFileTypes = ['jpg', 'jpeg', 'png', 'gif']
-        if (!supportedFileTypes.includes(fileType)) {
-          channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_unsupported_filetype_error']}`)
-          return
-        }
-
-        const memePath = memeName + '.' + fileType
-        response.pipe(fs.createWriteStream(config['memesFilesPath'] + memePath))
-
-        try {
-          db.get('memes')
-            .push({ name: memeName, path: memePath })
-            .write()
-        } catch (error) {
-          channel.send(`${language['new_meme_not_created_error']} - ${language['new_meme_check_permissions_to_db_file_error']}`)
-          return
-        }
-
-        channel.send(language['new_meme_created'])
-      })
-      .on('error', () => {
-        channel.send(language['new_meme_request_error'])
-      })
+    channel.send(language['new_meme_created'])
   }
 }
