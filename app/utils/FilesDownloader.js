@@ -1,6 +1,7 @@
 import fs from 'fs'
 import request from 'request'
 import language from 'app/language'
+// import config from 'config/config.json'
 
 function getDownloadedFileType (response) {
   const contentType = response.headers['content-type']
@@ -20,17 +21,6 @@ function forceEndingWith (string, forced) {
   return string
 }
 
-function makeSureFileTypeSupported (response) {
-  const supportedFileTypes = ['jpg', 'jpeg', 'png', 'gif']
-  const fileType = getDownloadedFileType(response)
-
-  if (!supportedFileTypes.includes(fileType)) {
-    throw new Error(language['unsupported_filetype_error'])
-  }
-
-  return fileType
-}
-
 function download (url, saveDirectory, nameWithoutExtension) {
   return new Promise((resolve, reject) => {
     request.get(url)
@@ -43,7 +33,12 @@ function download (url, saveDirectory, nameWithoutExtension) {
           reject(new Error(language['resource_not_exist_error']))
         }
 
-        const fileType = makeSureFileTypeSupported(response)
+        const supportedFileTypes = ['jpg', 'jpeg', 'png', 'gif']
+        const fileType = getDownloadedFileType(response)
+        if (!supportedFileTypes.includes(fileType)) {
+          reject(new Error(language['unsupported_filetype_error']))
+        }
+
         const fileName = nameWithoutExtension + '.' + fileType
         const filePath = forceEndingWith(saveDirectory, '/') + fileName
 
