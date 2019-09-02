@@ -73,7 +73,7 @@ export default {
 
     if (isHttpUrl(memeReference)) {
       try {
-        await MemesManager.remove('temp')
+        await MemesManager.remove(memeName)
       } catch (error) {
         channel.send(error.message)
       }
