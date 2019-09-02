@@ -22,5 +22,6 @@
   "request_error": "Request error (host not responding)",
   "action_remove-meme_description": "Remove the specific meme",
   "meme_removed": "The meme was removed",
-  "no_permissions_to_save_downloaded_file": "You have not permissions to save downloaded file"
+  "no_permissions_to_save_downloaded_file": "You have not permissions to save downloaded file",
+  "remove_meme_file_error": "Could not remove the meme file"
 }

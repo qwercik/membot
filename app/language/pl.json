@@ -22,5 +22,6 @@
   "request_error": "Wykonanie zapytania nie powiodło się (brak komunikacji z hostem)",
   "action_remove-meme_description": "Usuń mema o podanej nazwie",
   "meme_removed": "Mem został usunięty",
-  "no_permissions_to_save_downloaded_file": "You have not permissions to save downloaded file"
+  "no_permissions_to_save_downloaded_file": "Nie masz uprawnień do zapisania pobranego pliku",
+  "remove_meme_file_error": "Nie można usunąć pliku mema"
 }

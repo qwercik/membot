@@ -1,5 +1,5 @@
-import db from 'app/db'
 import language from 'app/language'
+import MemesManager from 'app/utils/MemesManager'
 
 export default {
   command: ['membot', 'm'],
@@ -10,17 +10,13 @@ export default {
   ],
   callback: async function (parsed) {
     const channel = parsed.message.channel
-
     const { memeName } = parsed.arguments
 
-    const removed = db.get('memes')
-      .remove({ name: memeName })
-      .write()
-
-    if (removed.length > 0) {
+    try {
+      await MemesManager.remove(memeName)
       channel.send(language['meme_removed'])
-    } else {
-      channel.send(language['meme_not_registered_in_config'])
+    } catch (error) {
+      channel.send(error)
     }
   }
 }

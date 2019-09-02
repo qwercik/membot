@@ -1,7 +1,5 @@
-import config from 'config/config.json'
-import db from 'app/db'
 import language from 'app/language'
-import FilesDownloader from 'app/utils/FilesDownloader'
+import MemesManager from 'app/utils/MemesManager'
 
 export default {
   command: ['membot', 'm'],
@@ -13,35 +11,13 @@ export default {
   ],
   callback: async function (parsed) {
     const channel = parsed.message.channel
-
     const { memeName, memeUrl } = parsed.arguments
 
-    const meme = db.get('memes')
-      .find({ name: memeName })
-      .value()
-
-    if (meme !== undefined) {
-      channel.send(`${language['new_meme_not_created_error']} - ${language['meme_with_the_given_name_exists']}`)
-      return
-    }
-
-    let file
     try {
-      file = await FilesDownloader.download(memeUrl, config['memesFilesPath'], memeName)
+      await MemesManager.create(memeName, memeUrl)
+      channel.send(language['new_meme_created'])
     } catch (error) {
       channel.send(error)
-      return
     }
-
-    try {
-      db.get('memes')
-        .push({ name: memeName, path: file.name })
-        .write()
-    } catch (error) {
-      channel.send(`${language['new_meme_not_created_error']} - ${language['check_permissions_to_db_file_error']}`)
-      return
-    }
-
-    channel.send(language['new_meme_created'])
   }
 }
