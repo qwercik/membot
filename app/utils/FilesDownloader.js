@@ -35,12 +35,12 @@ function download (url, saveDirectory, nameWithoutExtension) {
   return new Promise((resolve, reject) => {
     request.get(url)
       .on('error', () => {
-        reject(language['request_error'])
+        reject(new Error(language['request_error']))
       })
       .on('response', response => {
         response.requestUrl = url
         if (response.statusCode !== 200) {
-          reject(language['resource_not_exist_error'])
+          reject(new Error(language['resource_not_exist_error']))
         }
 
         const fileType = makeSureFileTypeSupported(response)
@@ -57,7 +57,7 @@ function download (url, saveDirectory, nameWithoutExtension) {
             })
           })
         } catch (error) {
-          reject(language['no_permissions_to_save_downloaded_file'])
+          reject(new Error(language['no_permissions_to_save_downloaded_file']))
         }
       })
   })

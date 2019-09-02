@@ -16,7 +16,7 @@ export default {
       await MemesManager.remove(memeName)
       channel.send(language['meme_removed'])
     } catch (error) {
-      channel.send(error)
+      channel.send(error.message)
     }
   }
 }

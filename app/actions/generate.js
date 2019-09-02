@@ -32,7 +32,7 @@ export default {
       try {
         path = await getMemeFromUrl(memeReference)
       } catch (error) {
-        channel.send(error)
+        channel.send(error.message)
         return
       }
     } else {
@@ -52,7 +52,7 @@ export default {
     try {
       generatedMeme = await MemeGenerator.generate(path, topText, bottomText)
     } catch (error) {
-      channel.send(error)
+      channel.send(error.message)
       return
     }
 

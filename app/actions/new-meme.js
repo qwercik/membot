@@ -17,7 +17,7 @@ export default {
       await MemesManager.create(memeName, memeUrl)
       channel.send(language['new_meme_created'])
     } catch (error) {
-      channel.send(error)
+      channel.send(error.message)
     }
   }
 }

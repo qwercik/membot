@@ -22,7 +22,7 @@ function removeFile (fileName) {
 
     fs.unlink(path, error => {
       if (error) {
-        reject(language['remove_meme_file_error'])
+        reject(new Error(language['remove_meme_file_error']))
       }
 
       resolve()
@@ -47,7 +47,7 @@ function create (memeName, url) {
         })
         .catch(reject)
     } else {
-      reject(`${language['new_meme_not_created_error']} - ${language['meme_with_the_given_name_exists']}`)
+      reject(new Error(`${language['new_meme_not_created_error']} - ${language['meme_with_the_given_name_exists']}`))
     }
   })
 }
@@ -56,7 +56,7 @@ function remove (memeName) {
   return new Promise((resolve, reject) => {
     const meme = getMemeByName(memeName)
     if (meme === undefined) {
-      reject(language['meme_not_registered_in_config'])
+      reject(new Error(language['meme_not_registered_in_config']))
     } else {
       removeFile(meme.path)
         .then(() => {
@@ -67,7 +67,7 @@ function remove (memeName) {
           if (removed.length > 0) {
             resolve()
           } else {
-            reject(language['meme_not_registered_in_config'])
+            reject(new Error(language['meme_not_registered_in_config']))
           }
         })
         .catch(reject)
