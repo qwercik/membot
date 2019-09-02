@@ -1,17 +1,18 @@
 import MemeGenerator from 'app/utils/MemeGenerator'
-import FilesDownloader from 'app/utils/FilesDownloader'
+import MemesManager from 'app/utils/MemesManager'
 import db from 'app/db'
 import language from 'app/language'
 import config from 'config/config.json'
 
+function generateMemeName () {
+  const date = new Date()
+  const formatted = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
+  return formatted
+}
+
 function isHttpUrl (text) {
   const pattern = /https?:\/\/(www\.)?[-a-za-z0-9@:%._+~#=]{1,256}\.[a-za-z0-9()]{1,6}\b([-a-za-z0-9()@:%_+.~#?&//=]*)/
   return pattern.test(text)
-}
-
-async function getMemeFromUrl (url) {
-  const file = await FilesDownloader.download(url, config['memesFilesPath'], 'temp') // Zmienić nazwę
-  return file.path
 }
 
 export default {
@@ -27,26 +28,29 @@ export default {
     const channel = parsed.message.channel
     const { memeReference, topText, bottomText } = parsed.arguments
 
-    let path
+    let meme
+    let memeName
     if (isHttpUrl(memeReference)) {
       try {
-        path = await getMemeFromUrl(memeReference)
+        memeName = generateMemeName()
+        meme = await MemesManager.create('temp', memeReference)
       } catch (error) {
         channel.send(error.message)
         return
       }
     } else {
-      const meme = db.get('memes')
-        .find({ name: memeReference })
+      memeName = memeReference
+      meme = db.get('memes')
+        .find({ name: memeName })
         .value()
 
       if (!meme) {
         channel.send(language['meme_not_registered_in_config'])
         return
       }
-
-      path = config['memesFilesPath'] + meme.path
     }
+
+    const path = config['memesFilesPath'] + meme.path
 
     let generatedMeme
     try {
@@ -56,12 +60,23 @@ export default {
       return
     }
 
-    channel.send({
-      files: [{
-        attachment: generatedMeme
-      }]
-    }).catch(() => {
+    try {
+      channel.send({
+        files: [{
+          attachment: generatedMeme
+        }]
+      })
+    } catch (error) {
       channel.send(language['meme_file_loading_error'])
-    })
+      return
+    }
+
+    if (isHttpUrl(memeReference)) {
+      try {
+        await MemesManager.remove('temp')
+      } catch (error) {
+        channel.send(error.message)
+      }
+    }
   }
 }
