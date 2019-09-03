@@ -24,7 +24,7 @@ export default {
     channel.send({
       files: [{
         attachment: `assets/${meme.path}`,
-        name: meme.path
+        name: meme.filename
       }]
     }).catch(() => {
       channel.send(language['meme_file_loading_error'])

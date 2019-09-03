@@ -37,7 +37,7 @@ function create (memeName, url) {
     if (meme === undefined) {
       createFile(memeName, url)
         .then(file => {
-          const meme = { name: memeName, path: file.name }
+          const meme = { name: memeName, filename: file.name }
 
           db.get('memes')
             .push(meme)
@@ -58,7 +58,7 @@ function remove (memeName) {
     if (meme === undefined) {
       reject(new Error(language['meme_not_registered_in_config']))
     } else {
-      removeFile(meme.path)
+      removeFile(meme.filename)
         .then(() => {
           const removed = db.get('memes')
             .remove({ name: memeName })

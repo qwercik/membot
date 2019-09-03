@@ -50,7 +50,7 @@ export default {
       }
     }
 
-    const path = config['memesFilesPath'] + meme.path
+    const path = config['memesFilesPath'] + meme.filename
 
     let generatedMeme
     try {
