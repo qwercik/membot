@@ -33,7 +33,7 @@ export default {
     if (isHttpUrl(memeReference)) {
       try {
         memeName = generateMemeName()
-        meme = await MemesManager.create('temp', memeReference)
+        meme = await MemesManager.create(memeName, memeReference)
       } catch (error) {
         channel.send(error.message)
         return
