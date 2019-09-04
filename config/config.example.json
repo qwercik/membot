@@ -3,5 +3,6 @@
   "token": "place for your Discord authorization token",
   "picturesFilesPath": "assets/",
   "databaseFilePath": "config/db.json",
-  "commandPrefix": "!"
+  "commandPrefix": "!",
+  "commands": ["membot", "m"]
 }
