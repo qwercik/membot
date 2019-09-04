@@ -1,7 +1,6 @@
 import fs from 'fs'
 import request from 'request'
 import language from 'app/language'
-// import config from 'config/config.json'
 
 function getDownloadedFileType (response) {
   const contentType = response.headers['content-type']

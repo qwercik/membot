@@ -1,5 +1,5 @@
 import DiscordCommandParser from 'discord-command-parser'
-import config from 'config/config.json'
+import config from 'config/config'
 
 function parse (message) {
   const prefix = config['commandPrefix']

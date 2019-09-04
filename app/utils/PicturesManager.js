@@ -1,5 +1,5 @@
 import FilesDownloader from 'app/utils/FilesDownloader'
-import config from 'config/config.json'
+import config from 'config/config'
 import language from 'app/language'
 import db from 'app/db'
 import fs from 'fs'

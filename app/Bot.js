@@ -2,7 +2,7 @@ import Discord from 'discord.js'
 import ActionsHandler from 'app/utils/ActionsHandler'
 import CommandParser from 'app/utils/CommandParser'
 import language from 'app/language'
-import config from 'config/config.json'
+import config from 'config/config'
 
 import ListAction from 'app/actions/list'
 import ShowAction from 'app/actions/show'

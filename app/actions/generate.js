@@ -2,7 +2,7 @@ import MemeGenerator from 'app/utils/MemeGenerator'
 import PicturesManager from 'app/utils/PicturesManager'
 import db from 'app/db'
 import language from 'app/language'
-import config from 'config/config.json'
+import config from 'config/config'
 
 function generatePictureName () {
   const date = new Date()

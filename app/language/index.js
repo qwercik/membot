@@ -1,4 +1,4 @@
-const config = require('config/config.json')
+const config = require('config/config')
 
 const defaultLanguage = require('app/language/en')
 
