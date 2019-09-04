@@ -19,5 +19,6 @@
   "action_remove-picture_description": "Remove the specific picture",
   "picture_removed": "The picture was removed",
   "no_permissions_to_save_downloaded_file": "You have not permissions to save downloaded file",
-  "remove_picture_file_error": "Could not remove the meme file"
+  "remove_picture_file_error": "Could not remove the meme file",
+  "config_setting_error": "Option in config not exist"
 }

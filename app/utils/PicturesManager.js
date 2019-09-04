@@ -1,5 +1,5 @@
 import FilesDownloader from 'app/utils/FilesDownloader'
-import config from 'config/config'
+import config from 'app/config'
 import language from 'app/language'
 import db from 'app/db'
 import fs from 'fs'
@@ -11,12 +11,12 @@ function getPictureByName (pictureName) {
 }
 
 function createFile (pictureName, url) {
-  return FilesDownloader.download(url, config['picturesFilesPath'], pictureName)
+  return FilesDownloader.download(url, config('picturesFilesPath'), pictureName)
 }
 
 function removeFile (fileName) {
   return new Promise((resolve, reject) => {
-    const path = config['picturesFilesPath'] + fileName
+    const path = config('picturesFilesPath') + fileName
 
     fs.unlink(path, error => {
       if (error) {

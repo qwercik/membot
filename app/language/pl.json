@@ -19,5 +19,6 @@
   "action_remove-picture_description": "Usuń obrazek o podanej nazwie",
   "picture_removed": "Obrazek został usunięty",
   "no_permissions_to_save_downloaded_file": "Nie masz uprawnień do zapisania pobranego pliku",
-  "remove_picture_file_error": "Nie można usunąć pliku obrazka"
+  "remove_picture_file_error": "Nie można usunąć pliku obrazka",
+  "config_setting_error": "Nie istnieje opcja w pliku konfiguracyjnym"
 }
