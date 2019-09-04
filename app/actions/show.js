@@ -2,8 +2,7 @@ import db from 'app/db'
 import language from 'app/language'
 
 export default {
-  command: ['membot', 'm'],
-  action: ['show', 's'],
+  actions: ['show', 's'],
   description: language('action_show_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ }

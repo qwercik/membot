@@ -2,8 +2,7 @@ import language from 'app/language'
 import PicturesManager from 'app/utils/PicturesManager'
 
 export default {
-  command: ['membot', 'm'],
-  action: ['new-picture', 'n'],
+  actions: ['new-picture', 'n'],
   description: language('action_new-picture_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ },

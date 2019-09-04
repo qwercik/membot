@@ -17,8 +17,7 @@ export default class Bot {
   }
 
   setUpActionsHandler () {
-    this.actionsHandler = new ActionsHandler()
-
+    this.actionsHandler = new ActionsHandler(['membot', 'm'])
     this.actionsHandler
       .addAction(ListAction)
       .addAction(ShowAction)

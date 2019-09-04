@@ -1,8 +1,9 @@
 import language from 'app/language'
 
 export default class ActionsHandler {
-  constructor () {
+  constructor (commands) {
     this.actions = []
+    this.commands = commands
   }
 
   addAction (action) {
@@ -17,9 +18,11 @@ export default class ActionsHandler {
       return
     }
 
-    const action = this.actions.find(el =>
-      el.command.includes(parsed.command) && el.action.includes(parsed.action)
-    )
+    if (!this.commands.includes(parsed.command)) {
+      return
+    }
+
+    const action = this.actions.find(el => el.actions.includes(parsed.action))
 
     if (!action) {
       channel.send(language('unknown_command_error'))

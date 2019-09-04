@@ -2,8 +2,7 @@ import db from 'app/db'
 import language from 'app/language'
 
 export default {
-  command: ['membot', 'm'],
-  action: ['list', 'l'],
+  actions: ['list', 'l'],
   description: language('action_list_description'),
   arguments: [],
   callback: async function (parsed) {

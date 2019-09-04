@@ -2,8 +2,7 @@ import language from 'app/language'
 import PicturesManager from 'app/utils/PicturesManager'
 
 export default {
-  command: ['membot', 'm'],
-  action: ['remove-picture', 'r'],
+  actions: ['remove-picture', 'r'],
   description: language('action_remove-picture_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ }

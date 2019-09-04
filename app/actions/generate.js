@@ -15,8 +15,7 @@ function isHttpUrl (text) {
 }
 
 export default {
-  command: ['membot', 'm'],
-  action: ['generate', 'g'],
+  actions: ['generate', 'g'],
   description: language('action_generate_description'),
   arguments: [
     { name: 'pictureReference', pattern: /^(?!\s*$).+/ },
