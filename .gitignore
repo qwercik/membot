@@ -8,3 +8,5 @@ assets/*
 *.swp
 *.swo
 *.swa
+
+.idea/
