@@ -20,7 +20,7 @@ function removeFile (fileName) {
 
     fs.unlink(path, error => {
       if (error) {
-        reject(new Error(language['remove_picture_file_error']))
+        reject(new Error(language('remove_picture_file_error')))
       }
 
       resolve()
@@ -45,7 +45,7 @@ function create (pictureName, url) {
         })
         .catch(reject)
     } else {
-      reject(new Error(`${language['new_picture_not_created_error']} - ${language['picture_with_the_given_name_exists']}`))
+      reject(new Error(`${language('new_picture_not_created_error')} - ${language('picture_with_the_given_name_exists')}`))
     }
   })
 }
@@ -54,7 +54,7 @@ function remove (pictureName) {
   return new Promise((resolve, reject) => {
     const picture = getPictureByName(pictureName)
     if (picture === undefined) {
-      reject(new Error(language['picture_not_registered_in_config']))
+      reject(new Error(language('picture_not_registered_in_config')))
     } else {
       removeFile(picture.filename)
         .then(() => {
@@ -65,7 +65,7 @@ function remove (pictureName) {
           if (removed.length > 0) {
             resolve()
           } else {
-            reject(new Error(language['picture_not_registered_in_config']))
+            reject(new Error(language('picture_not_registered_in_config')))
           }
         })
         .catch(reject)

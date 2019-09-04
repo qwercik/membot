@@ -22,7 +22,7 @@ export default class ActionsHandler {
     )
 
     if (!action) {
-      channel.send(language['unknown_command_error'])
+      channel.send(language('unknown_command_error'))
       return
     }
 
@@ -34,7 +34,7 @@ export default class ActionsHandler {
       const value = parsed.arguments[index] ? parsed.arguments[index] : ''
 
       if (!pattern.test(value)) {
-        channel.send(language['incorrect_usage_error'])
+        channel.send(language('incorrect_usage_error'))
         return
       }
 

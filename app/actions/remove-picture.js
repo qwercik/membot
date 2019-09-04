@@ -4,7 +4,7 @@ import PicturesManager from 'app/utils/PicturesManager'
 export default {
   command: ['membot', 'm'],
   action: ['remove-picture', 'r'],
-  description: language['action_remove-picture_description'],
+  description: language('action_remove-picture_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ }
   ],
@@ -14,7 +14,7 @@ export default {
 
     try {
       await PicturesManager.remove(pictureName)
-      channel.send(language['picture_removed'])
+      channel.send(language('picture_removed'))
     } catch (error) {
       channel.send(error.message)
     }

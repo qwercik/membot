@@ -10,4 +10,12 @@ try {
   throw new Error('Such language doesn\'t exist!')
 }
 
-export default json
+export default function language (key) {
+  const translation = json[key]
+
+  if (translation === undefined) {
+    throw new Error(`Translation '${key}' not exist. Check ${path} language file.`)
+  }
+
+  return translation
+}

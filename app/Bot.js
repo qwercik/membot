@@ -31,7 +31,7 @@ export default class Bot {
     this.discordClient = new Discord.Client()
 
     this.discordClient.on('ready', () => {
-      console.log(language['connected_info'])
+      console.log(language('connected_info'))
     })
 
     this.discordClient.on('message', message => {

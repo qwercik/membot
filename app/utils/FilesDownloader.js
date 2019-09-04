@@ -24,18 +24,18 @@ function download (url, saveDirectory, nameWithoutExtension) {
   return new Promise((resolve, reject) => {
     request.get(url)
       .on('error', () => {
-        reject(new Error(language['request_error']))
+        reject(new Error(language('request_error')))
       })
       .on('response', response => {
         response.requestUrl = url
         if (response.statusCode !== 200) {
-          reject(new Error(language['resource_not_exist_error']))
+          reject(new Error(language('resource_not_exist_error')))
         }
 
         const supportedFileTypes = ['jpg', 'jpeg', 'png', 'gif']
         const fileType = getDownloadedFileType(response)
         if (!supportedFileTypes.includes(fileType)) {
-          reject(new Error(language['unsupported_filetype_error']))
+          reject(new Error(language('unsupported_filetype_error')))
         }
 
         const fileName = nameWithoutExtension + '.' + fileType
@@ -51,7 +51,7 @@ function download (url, saveDirectory, nameWithoutExtension) {
             })
           })
         } catch (error) {
-          reject(new Error(language['no_permissions_to_save_downloaded_file']))
+          reject(new Error(language('no_permissions_to_save_downloaded_file')))
         }
       })
   })

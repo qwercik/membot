@@ -4,7 +4,7 @@ import language from 'app/language'
 export default {
   command: ['membot', 'm'],
   action: ['show', 's'],
-  description: language['action_show_description'],
+  description: language('action_show_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ }
   ],
@@ -17,7 +17,7 @@ export default {
       .value()
 
     if (!picture) {
-      channel.send(language['picture_not_registered_in_config'])
+      channel.send(language('picture_not_registered_in_config'))
       return
     }
 
@@ -27,7 +27,7 @@ export default {
         name: picture.filename
       }]
     }).catch(() => {
-      channel.send(language['picture_file_loading_error'])
+      channel.send(language('picture_file_loading_error'))
     })
   }
 }
