@@ -16,7 +16,7 @@ export default class Bot {
     this.setUpDiscordClient()
   }
 
-  async setUpActionsHandler () {
+  setUpActionsHandler () {
     this.actionsHandler = new ActionsHandler()
 
     this.actionsHandler
