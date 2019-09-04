@@ -2,5 +2,6 @@
   "language": "en",
   "token": "place for your Discord authorization token",
   "picturesFilesPath": "assets/",
-  "databaseFilePath": "config/db.json"
+  "databaseFilePath": "config/db.json",
+  "commandPrefix": "!"
 }

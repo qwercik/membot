@@ -35,7 +35,7 @@ export default class Bot {
     })
 
     this.discordClient.on('message', message => {
-      const parsedMessage = CommandParser.parse(message, '!')
+      const parsedMessage = CommandParser.parse(message)
       this.actionsHandler.handle(parsedMessage)
     })
   }
