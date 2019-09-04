@@ -27,7 +27,7 @@ function generate (path, topText, bottomText) {
         resolve(canvas.createJPEGStream())
       })
       .catch(sth => {
-        reject(new Error(language['meme_file_loading_error']))
+        reject(new Error(language['picture_file_loading_error']))
       })
   })
 };

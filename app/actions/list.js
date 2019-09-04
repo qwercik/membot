@@ -9,11 +9,11 @@ export default {
   callback: async function (parsed) {
     const channel = parsed.message.channel
 
-    const memesList = db.get('memes')
+    const picturesList = db.get('pictures')
       .map('name')
       .value()
       .join(', ')
 
-    channel.send(`${language['memes_list_info']}: ${memesList}`)
+    channel.send(`${language['pictures_list_info']}: ${picturesList}`)
   }
 }

@@ -1,13 +1,12 @@
 import MemeGenerator from 'app/utils/MemeGenerator'
-import MemesManager from 'app/utils/MemesManager'
+import PicturesManager from 'app/utils/PicturesManager'
 import db from 'app/db'
 import language from 'app/language'
 import config from 'config/config.json'
 
-function generateMemeName () {
+function generatePictureName () {
   const date = new Date()
-  const formatted = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
-  return formatted
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
 }
 
 function isHttpUrl (text) {
@@ -20,37 +19,37 @@ export default {
   action: ['generate', 'g'],
   description: language['action_generate_description'],
   arguments: [
-    { name: 'memeReference', pattern: /^(?!\s*$).+/ },
+    { name: 'pictureReference', pattern: /^(?!\s*$).+/ },
     { name: 'topText', pattern: /^.*$/ },
     { name: 'bottomText', pattern: /^.*$/ }
   ],
   callback: async function (parsed) {
     const channel = parsed.message.channel
-    const { memeReference, topText, bottomText } = parsed.arguments
+    const { pictureReference, topText, bottomText } = parsed.arguments
 
-    let meme
-    let memeName
-    if (isHttpUrl(memeReference)) {
+    let picture
+    let pictureName
+    if (isHttpUrl(pictureReference)) {
       try {
-        memeName = generateMemeName()
-        meme = await MemesManager.create(memeName, memeReference)
+        pictureName = generatePictureName()
+        picture = await PicturesManager.create(pictureName, pictureReference)
       } catch (error) {
         channel.send(error.message)
         return
       }
     } else {
-      memeName = memeReference
-      meme = db.get('memes')
-        .find({ name: memeName })
+      pictureName = pictureReference
+      picture = db.get('pictures')
+        .find({ name: pictureName })
         .value()
 
-      if (!meme) {
-        channel.send(language['meme_not_registered_in_config'])
+      if (!picture) {
+        channel.send(language['picture_not_registered_in_config'])
         return
       }
     }
 
-    const path = config['memesFilesPath'] + meme.filename
+    const path = config['picturesFilesPath'] + picture.filename
 
     let generatedMeme
     try {
@@ -67,13 +66,13 @@ export default {
         }]
       })
     } catch (error) {
-      channel.send(language['meme_file_loading_error'])
+      channel.send(language['picture_file_loading_error'])
       return
     }
 
-    if (isHttpUrl(memeReference)) {
+    if (isHttpUrl(pictureReference)) {
       try {
-        await MemesManager.remove(memeName)
+        await PicturesManager.remove(pictureName)
       } catch (error) {
         channel.send(error.message)
       }

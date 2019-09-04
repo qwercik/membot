@@ -5,7 +5,7 @@ import config from 'config/config'
 const fileAdapter = new FileSync(config['databaseFilePath'])
 const db = lowdb(fileAdapter)
 
-db.defaults({ memes: [] })
+db.defaults({ pictures: [] })
   .write()
 
 export default db

@@ -6,28 +6,28 @@ export default {
   action: ['show', 's'],
   description: language['action_show_description'],
   arguments: [
-    { name: 'memeName', pattern: /^(?!\s*$).+/ }
+    { name: 'pictureName', pattern: /^(?!\s*$).+/ }
   ],
   callback: async function (parsed) {
     const channel = parsed.message.channel
 
-    const { memeName } = parsed.arguments
-    const meme = db.get('memes')
-      .find({ name: memeName })
+    const { pictureName } = parsed.arguments
+    const picture = db.get('pictures')
+      .find({ name: pictureName })
       .value()
 
-    if (!meme) {
-      channel.send(language['meme_not_registered_in_config'])
+    if (!picture) {
+      channel.send(language['picture_not_registered_in_config'])
       return
     }
 
     channel.send({
       files: [{
-        attachment: `assets/${meme.path}`,
-        name: meme.filename
+        attachment: `assets/${picture.filename}`,
+        name: picture.filename
       }]
     }).catch(() => {
-      channel.send(language['meme_file_loading_error'])
+      channel.send(language['picture_file_loading_error'])
     })
   }
 }

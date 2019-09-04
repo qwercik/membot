@@ -1,6 +1,6 @@
 {
   "language": "en",
   "token": "place for your Discord authorization token",
-  "memesFilesPath": "assets/",
+  "picturesFilesPath": "assets/",
   "databaseFilePath": "config/db.json"
 }
