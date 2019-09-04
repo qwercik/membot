@@ -1,11 +1,13 @@
-const config = require('config/config')
+import config from 'config/config'
+import fs from 'fs'
 
-const defaultLanguage = require('app/language/en')
+const path = `app/language/${config['language']}.json`
 
+let json
 try {
-  const selectedLanguage = require(`app/language/${config.language}`)
-
-  module.exports = Object.assign(defaultLanguage, selectedLanguage)
+  json = JSON.parse(fs.readFileSync(path))
 } catch (error) {
-  throw new Error(defaultLanguage['localization_file_not_exist_error'])
+  throw new Error('Such language doesn\'t exist!')
 }
+
+export default json
