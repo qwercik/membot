@@ -4,26 +4,22 @@ import CommandParser from 'app/mediator/CommandParser'
 import language from 'app/language'
 import config from 'app/config'
 
-import ListAction from 'app/actions/list'
-import ShowAction from 'app/actions/show'
-import GenerateAction from 'app/actions/generate'
-import NewPictureAction from 'app/actions/new-picture'
-import RemovePictureAction from 'app/actions/remove-picture'
-
 export default class Bot {
   constructor () {
-    this.setUpActionsHandler()
-    this.setUpDiscordClient()
   }
 
-  setUpActionsHandler () {
+  async setUpActionsHandler () {
+    const actions = config('actions')
     this.actionsHandler = new ActionsHandler(config('commands'))
-    this.actionsHandler
-      .addAction(ListAction)
-      .addAction(ShowAction)
-      .addAction(GenerateAction)
-      .addAction(NewPictureAction)
-      .addAction(RemovePictureAction)
+
+    for (const action of actions) {
+      try {
+        const module = (await import(`app/actions/${action}`)).default
+        this.actionsHandler.addAction(module)
+      } catch (error) {
+        console.error(`${language('action_load_error')} ${action}`)
+      }
+    }
   }
 
   setUpDiscordClient () {
@@ -39,7 +35,9 @@ export default class Bot {
     })
   }
 
-  run () {
+  async run () {
+    await this.setUpActionsHandler()
+    this.setUpDiscordClient()
     this.discordClient.login(config('token'))
   }
 }
