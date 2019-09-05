@@ -10,7 +10,7 @@ export default {
   callback: async function (parsed) {
     const channel = parsed.message.channel
     const { pictureName } = parsed.arguments
-    
+
     await PicturesManager.remove(pictureName)
     channel.send(language('picture_removed'))
   }

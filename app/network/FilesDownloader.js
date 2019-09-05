@@ -1,7 +1,6 @@
 import fs from 'fs'
 import axios from 'axios'
 import language from 'app/language'
-import util from 'util'
 
 function getDownloadedFileType (response) {
   const contentType = response.headers['content-type']
@@ -49,8 +48,7 @@ async function download (url, saveDirectory, nameWithoutExtension) {
   let stream
   try {
     stream = response.data.pipe(fs.createWriteStream(filePath))
-  }
-  catch (error) {
+  } catch (error) {
     throw new Error(language('no_permissions_to_save_downloaded_file'))
   }
 
