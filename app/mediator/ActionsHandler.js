@@ -34,7 +34,7 @@ export default class ActionsHandler {
     for (let index = 0; index < action.arguments.length; ++index) {
       const name = action.arguments[index].name
       const pattern = action.arguments[index].pattern
-      const value = parsed.arguments[index] ? parsed.arguments[index] : ''
+      const value = parsed.arguments[index] || ''
 
       if (!pattern.test(value)) {
         channel.send(language('incorrect_usage_error'))

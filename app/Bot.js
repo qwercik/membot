@@ -1,6 +1,6 @@
 import Discord from 'discord.js'
-import ActionsHandler from 'app/utils/ActionsHandler'
-import CommandParser from 'app/utils/CommandParser'
+import ActionsHandler from 'app/mediator/ActionsHandler'
+import CommandParser from 'app/mediator/CommandParser'
 import language from 'app/language'
 import config from 'app/config'
 
