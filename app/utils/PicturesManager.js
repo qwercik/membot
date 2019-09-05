@@ -58,7 +58,7 @@ async function remove (pictureName) {
   let removed
   try {
     removed = db.get('pictures')
-      .remove({name: pictureName})
+      .remove({ name: pictureName })
       .write()
   } catch (error) {
     throw new Error(language('db_write_error'))
