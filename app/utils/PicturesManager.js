@@ -3,6 +3,9 @@ import config from 'app/config'
 import language from 'app/language'
 import db from 'app/db'
 import fs from 'fs'
+import util from 'util'
+
+const unlink = util.promisify(fs.unlink)
 
 function getPictureByName (pictureName) {
   return db.get('pictures')
@@ -14,18 +17,14 @@ function createFile (pictureName, url) {
   return FilesDownloader.download(url, config('picturesFilesPath'), pictureName)
 }
 
-function removeFile (fileName) {
-  return new Promise((resolve, reject) => {
-    const path = config('picturesFilesPath') + fileName
+async function removeFile (fileName) {
+  const path = config('picturesFilesPath') + fileName
 
-    fs.unlink(path, error => {
-      if (error) {
-        reject(new Error(language('remove_picture_file_error')))
-      }
-
-      resolve()
-    })
-  })
+  try {
+    await unlink(path)
+  } catch (error) {
+    throw new Error(language('remove_picture_file_error'))
+  }
 }
 
 function create (pictureName, url) {
