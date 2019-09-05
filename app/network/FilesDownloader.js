@@ -30,10 +30,10 @@ async function download (url, saveDirectory, nameWithoutExtension) {
       responseType: 'stream'
     })
   } catch (error) {
-    throw new Error(language('request_error'))
-  }
+    if (error.response === undefined) {
+      throw new Error(language('request_error'))
+    }
 
-  if (response.status !== 200) {
     throw new Error(language('resource_not_exist_error'))
   }
 
