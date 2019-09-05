@@ -1,4 +1,4 @@
-import FilesDownloader from 'app/utils/FilesDownloader'
+import FilesDownloader from 'app/network/FilesDownloader'
 import config from 'app/config'
 import language from 'app/language'
 import db from 'app/db'
