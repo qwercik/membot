@@ -47,27 +47,26 @@ async function create (pictureName, url) {
   return picture
 }
 
-function remove (pictureName) {
-  return new Promise((resolve, reject) => {
-    const picture = getPictureByName(pictureName)
-    if (picture === undefined) {
-      reject(new Error(language('picture_not_registered_in_config')))
-    } else {
-      removeFile(picture.filename)
-        .then(() => {
-          const removed = db.get('pictures')
-            .remove({ name: pictureName })
-            .write()
+async function remove (pictureName) {
+  const picture = getPictureByName(pictureName)
+  if (picture === undefined) {
+    throw new Error(language('picture_not_registered_in_config'))
+  }
 
-          if (removed.length > 0) {
-            resolve()
-          } else {
-            reject(new Error(language('picture_not_registered_in_config')))
-          }
-        })
-        .catch(reject)
-    }
-  })
+  await removeFile(picture.filename)
+
+  let removed
+  try {
+    removed = db.get('pictures')
+      .remove({name: pictureName})
+      .write()
+  } catch (error) {
+    throw new Error(language('db_write_error'))
+  }
+
+  if (removed.length <= 0) {
+    throw new Error(language('picture_not_registered_in_config'))
+  }
 }
 
 export default { create, remove }
