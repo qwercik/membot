@@ -20,13 +20,15 @@ export default {
       return
     }
 
-    channel.send({
-      files: [{
-        attachment: `assets/${picture.filename}`,
-        name: picture.filename
-      }]
-    }).catch(() => {
-      channel.send(language('picture_file_loading_error'))
-    })
+    try {
+      channel.send({
+        files: [{
+          attachment: `assets/${picture.filename}`,
+          name: picture.filename
+        }]
+      })
+    } catch (error) {
+      throw new Error(language('picture_file_loading_error'))
+    }
   }
 }

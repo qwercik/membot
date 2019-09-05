@@ -12,11 +12,7 @@ export default {
     const channel = parsed.message.channel
     const { pictureName, pictureUrl } = parsed.arguments
 
-    try {
-      await PicturesManager.create(pictureName, pictureUrl)
-      channel.send(language('new_picture_created'))
-    } catch (error) {
-      channel.send(error.message)
-    }
+    await PicturesManager.create(pictureName, pictureUrl)
+    channel.send(language('new_picture_created'))
   }
 }

@@ -11,26 +11,20 @@ export default class ActionsHandler {
     return this
   }
 
-  handle (parsed) {
+  async handle (parsed) {
     const channel = parsed.message.channel
 
-    if (!parsed.isCommand) {
-      return
-    }
-
-    if (!this.commands.includes(parsed.command)) {
+    if (!parsed.isCommand || !this.commands.includes(parsed.command)) {
       return
     }
 
     const action = this.actions.find(el => el.actions.includes(parsed.action))
-
     if (!action) {
       channel.send(language('unknown_command_error'))
       return
     }
 
     const argumentsObject = {}
-
     for (let index = 0; index < action.arguments.length; ++index) {
       const name = action.arguments[index].name
       const pattern = action.arguments[index].pattern
@@ -44,8 +38,11 @@ export default class ActionsHandler {
       argumentsObject[name] = value
     }
 
-    parsed.arguments = argumentsObject
-
-    action.callback(parsed)
+    try {
+      parsed.arguments = argumentsObject
+      await action.callback(parsed)
+    } catch (error) {
+      channel.send(error.message)
+    }
   }
 }

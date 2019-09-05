@@ -29,13 +29,8 @@ export default {
     let picture
     let pictureName
     if (isHttpUrl(pictureReference)) {
-      try {
-        pictureName = generatePictureName()
-        picture = await PicturesManager.create(pictureName, pictureReference)
-      } catch (error) {
-        channel.send(error.message)
-        return
-      }
+      pictureName = generatePictureName()
+      picture = await PicturesManager.create(pictureName, pictureReference)
     } else {
       pictureName = pictureReference
       picture = db.get('pictures')
@@ -49,14 +44,7 @@ export default {
     }
 
     const path = config['picturesFilesPath'] + picture.filename
-
-    let generatedMeme
-    try {
-      generatedMeme = await MemeGenerator.generate(path, topText, bottomText)
-    } catch (error) {
-      channel.send(error.message)
-      return
-    }
+    const generatedMeme = await MemeGenerator.generate(path, topText, bottomText)
 
     try {
       channel.send({
@@ -65,16 +53,11 @@ export default {
         }]
       })
     } catch (error) {
-      channel.send(language('picture_file_loading_error'))
-      return
+      throw Error(language('picture_file_loading_error'))
     }
 
     if (isHttpUrl(pictureReference)) {
-      try {
-        await PicturesManager.remove(pictureName)
-      } catch (error) {
-        channel.send(error.message)
-      }
+      await PicturesManager.remove(pictureName)
     }
   }
 }
