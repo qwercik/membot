@@ -27,26 +27,24 @@ async function removeFile (fileName) {
   }
 }
 
-function create (pictureName, url) {
-  return new Promise((resolve, reject) => {
-    const picture = getPictureByName(pictureName)
+async function create (pictureName, url) {
+  let picture = getPictureByName(pictureName)
+  if (picture !== undefined) {
+    throw new Error(`${language('new_picture_not_created_error')} - ${language('picture_with_the_given_name_exists')}`)
+  }
 
-    if (picture === undefined) {
-      createFile(pictureName, url)
-        .then(file => {
-          const picture = { name: pictureName, filename: file.name }
+  const file = await createFile(pictureName, url)
+  picture = { name: pictureName, filename: file.name }
 
-          db.get('pictures')
-            .push(picture)
-            .write()
+  try {
+    db.get('pictures')
+      .push(picture)
+      .write()
+  } catch (error) {
+    throw new Error(language('db_write_error'))
+  }
 
-          resolve(picture)
-        })
-        .catch(reject)
-    } else {
-      reject(new Error(`${language('new_picture_not_created_error')} - ${language('picture_with_the_given_name_exists')}`))
-    }
-  })
+  return picture
 }
 
 function remove (pictureName) {
