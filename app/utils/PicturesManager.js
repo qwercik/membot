@@ -1,4 +1,5 @@
 import FilesDownloader from 'app/network/FilesDownloader'
+import ActionError from '../exceptions/ActionError'
 import config from 'app/config'
 import language from 'app/language'
 import db from 'app/db'
@@ -23,14 +24,14 @@ async function removeFile (fileName) {
   try {
     await unlink(path)
   } catch (error) {
-    throw new Error(language('remove_picture_file_error'))
+    throw new ActionError(language('remove_picture_file_error'))
   }
 }
 
 async function create (pictureName, url) {
   let picture = getPictureByName(pictureName)
   if (picture !== undefined) {
-    throw new Error(`${language('new_picture_not_created_error')} - ${language('picture_with_the_given_name_exists')}`)
+    throw new ActionError(`${language('new_picture_not_created_error')} - ${language('picture_with_the_given_name_exists')}`)
   }
 
   const file = await createFile(pictureName, url)
@@ -41,7 +42,7 @@ async function create (pictureName, url) {
       .push(picture)
       .write()
   } catch (error) {
-    throw new Error(language('db_write_error'))
+    throw new ActionError(language('db_write_error'))
   }
 
   return picture
@@ -50,7 +51,7 @@ async function create (pictureName, url) {
 async function remove (pictureName) {
   const picture = getPictureByName(pictureName)
   if (picture === undefined) {
-    throw new Error(language('picture_not_registered_in_config'))
+    throw new ActionError(language('picture_not_registered_in_config'))
   }
 
   await removeFile(picture.filename)
@@ -61,11 +62,11 @@ async function remove (pictureName) {
       .remove({ name: pictureName })
       .write()
   } catch (error) {
-    throw new Error(language('db_write_error'))
+    throw new ActionError(language('db_write_error'))
   }
 
   if (removed.length <= 0) {
-    throw new Error(language('picture_not_registered_in_config'))
+    throw new ActionError(language('picture_not_registered_in_config'))
   }
 }
 

@@ -1,5 +1,6 @@
 import { createCanvas, loadImage } from 'canvas'
 import language from 'app/language'
+import ActionError from 'app/exceptions/ActionError'
 
 function generate (path, topText, bottomText) {
   return new Promise((resolve, reject) => {
@@ -26,8 +27,8 @@ function generate (path, topText, bottomText) {
 
         resolve(canvas.createJPEGStream())
       })
-      .catch(sth => {
-        reject(new Error(language('picture_file_loading_error')))
+      .catch(() => {
+        reject(new ActionError(language('picture_file_loading_error')))
       })
   })
 };

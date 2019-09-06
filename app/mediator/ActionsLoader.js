@@ -1,5 +1,6 @@
 import fs from 'fs'
 import util from 'util'
+import ApplicationError from 'app/exceptions/ApplicationError'
 import language from '../language'
 import { forceEndingWith } from 'app/utils'
 
@@ -15,7 +16,7 @@ export default class ActionsLoader {
     try {
       actions = await readdir('app/actions')
     } catch (error) {
-      throw new Error(language('actions_list_load_error'))
+      throw new ApplicationError(language('actions_list_load_error'))
     }
 
     return actions
@@ -31,7 +32,7 @@ export default class ActionsLoader {
 
         actionsHandler.addAction(module)
       } catch (error) {
-        throw new Error(`${language('action_load_error')} ${action}`)
+        throw new ApplicationError(`${language('action_load_error')} ${action}`)
       }
     }
   }

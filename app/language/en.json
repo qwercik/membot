@@ -24,4 +24,5 @@
   "actions_list_load_error": "Could not load actions' list",
   "action_load_error": "Could not load action module",
   "db_write_error": "Could not write to database",
+  "unknown_error": "Unknown error ocurred"
 }

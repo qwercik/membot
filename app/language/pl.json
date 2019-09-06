@@ -23,5 +23,6 @@
   "config_setting_error": "Nie istnieje opcja w pliku konfiguracyjnym",
   "actions_list_load_error": "Nie udało się wczytać listy akcji",
   "action_load_error": "Nie udało się wczytać modułu akcji",
-  "db_write_error": "Nie udało się zapisać do bazy danych"
+  "db_write_error": "Nie udało się zapisać do bazy danych",
+  "unknown_error": "Wystąpił nieznany błąd"
 }

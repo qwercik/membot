@@ -6,6 +6,7 @@ import language from 'app/language'
 import config from 'app/config'
 import fs from 'fs'
 import util from 'util'
+import ApplicationError from 'app/exceptions/ApplicationError'
 
 const readdir = util.promisify(fs.readdir)
 
@@ -24,9 +25,19 @@ export default class Bot {
       console.log(language('connected_info'))
     })
 
-    this.discordClient.on('message', message => {
-      const parsedMessage = CommandParser.parse(message)
-      this.actionsHandler.handle(parsedMessage)
+    this.discordClient.on('message', async message => {
+      const parsed = CommandParser.parse(message)
+      const channel = parsed.message.channel
+
+      try {
+        await this.actionsHandler.handle(parsed)
+      } catch (error) {
+        if (error.name === 'ActionError') {
+          channel.send(error.message)
+        } else {
+          throw error
+        }
+      }
     })
   }
 

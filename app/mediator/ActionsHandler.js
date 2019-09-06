@@ -1,4 +1,5 @@
 import language from 'app/language'
+import ActionError from 'app/exceptions/ActionError'
 
 export default class ActionsHandler {
   constructor (commands) {
@@ -12,16 +13,13 @@ export default class ActionsHandler {
   }
 
   async handle (parsed) {
-    const channel = parsed.message.channel
-
     if (!parsed.isCommand || !this.commands.includes(parsed.command)) {
       return
     }
 
     const action = this.actions.find(el => el.actions.includes(parsed.action))
     if (!action) {
-      channel.send(language('unknown_command_error'))
-      return
+      throw new ActionError(language('unknown_command_error'))
     }
 
     const argumentsObject = {}
@@ -31,18 +29,13 @@ export default class ActionsHandler {
       const value = parsed.arguments[index] || ''
 
       if (!pattern.test(value)) {
-        channel.send(language('incorrect_usage_error'))
-        return
+        throw new ActionError(language('incorrect_usage_error'))
       }
 
       argumentsObject[name] = value
     }
 
-    try {
-      parsed.arguments = argumentsObject
-      await action.callback(parsed)
-    } catch (error) {
-      channel.send(error.message)
-    }
+    parsed.arguments = argumentsObject
+    await action.callback(parsed)
   }
 }
