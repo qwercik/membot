@@ -1,4 +1,5 @@
 import Discord from 'discord.js'
+import ActionsLoader from 'app/mediator/ActionsLoader'
 import ActionsHandler from 'app/mediator/ActionsHandler'
 import CommandParser from 'app/mediator/CommandParser'
 import language from 'app/language'
@@ -13,23 +14,10 @@ export default class Bot {
   }
 
   async setUpActionsHandler () {
-    let actions = []
-    try {
-      actions = await readdir('app/actions')
-    } catch (error) {
-      throw new Error(language('actions_list_load_error'))
-    }
-
     this.actionsHandler = new ActionsHandler(config('commands'))
+    const actionsLoader = new ActionsLoader('app/actions')
 
-    for (const action of actions) {
-      try {
-        const module = (await import(`app/actions/${action}`)).default
-        this.actionsHandler.addAction(module)
-      } catch (error) {
-        throw new Error(`${language('action_load_error')} ${action}`)
-      }
-    }
+    await actionsLoader.loadActionsModules(this.actionsHandler)
   }
 
   setUpDiscordClient () {

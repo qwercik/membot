@@ -1,6 +1,7 @@
 import fs from 'fs'
 import axios from 'axios'
 import language from 'app/language'
+import { forceEndingWith } from 'app/utils'
 
 function getDownloadedFileType (response) {
   const contentType = response.headers['content-type']
@@ -10,14 +11,6 @@ function getDownloadedFileType (response) {
   } else {
     return response.config.url.split('.').pop().toLowerCase()
   }
-}
-
-function forceEndingWith (string, forced) {
-  if (!string.endsWith(forced)) {
-    string += forced
-  }
-
-  return string
 }
 
 async function download (url, saveDirectory, nameWithoutExtension) {
