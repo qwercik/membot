@@ -10,9 +10,6 @@ import util from 'util'
 const readdir = util.promisify(fs.readdir)
 
 export default class Bot {
-  constructor () {
-  }
-
   async setUpActionsHandler () {
     this.actionsHandler = new ActionsHandler(config('commands'))
     const actionsLoader = new ActionsLoader('app/actions')
