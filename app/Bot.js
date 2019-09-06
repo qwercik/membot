@@ -3,13 +3,23 @@ import ActionsHandler from 'app/mediator/ActionsHandler'
 import CommandParser from 'app/mediator/CommandParser'
 import language from 'app/language'
 import config from 'app/config'
+import fs from 'fs'
+import util from 'util'
+
+const readdir = util.promisify(fs.readdir)
 
 export default class Bot {
   constructor () {
   }
 
   async setUpActionsHandler () {
-    const actions = config('actions')
+    let actions = []
+    try {
+      actions = await readdir('app/actions')
+    } catch (error) {
+      throw new Error(language('actions_list_load_error'))
+    }
+
     this.actionsHandler = new ActionsHandler(config('commands'))
 
     for (const action of actions) {
@@ -17,7 +27,7 @@ export default class Bot {
         const module = (await import(`app/actions/${action}`)).default
         this.actionsHandler.addAction(module)
       } catch (error) {
-        console.error(`${language('action_load_error')} ${action}`)
+        throw new Error(`${language('action_load_error')} ${action}`)
       }
     }
   }

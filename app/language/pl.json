@@ -21,6 +21,7 @@
   "no_permissions_to_save_downloaded_file": "Nie masz uprawnień do zapisania pobranego pliku",
   "remove_picture_file_error": "Nie można usunąć pliku obrazka",
   "config_setting_error": "Nie istnieje opcja w pliku konfiguracyjnym",
+  "actions_list_load_error": "Nie udało się wczytać listy akcji",
   "action_load_error": "Nie udało się wczytać modułu akcji",
   "db_write_error": "Nie udało się zapisać do bazy danych"
 }

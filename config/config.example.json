@@ -4,6 +4,5 @@
   "picturesFilesPath": "assets/",
   "databaseFilePath": "config/db.json",
   "commandPrefix": "!",
-  "commands": ["membot", "m"],
-  "actions": ["list", "show", "generate", "new-picture", "remove-picture"]
+  "commands": ["membot", "m"]
 }

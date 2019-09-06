@@ -21,6 +21,7 @@
   "no_permissions_to_save_downloaded_file": "You have not permissions to save downloaded file",
   "remove_picture_file_error": "Could not remove the meme file",
   "config_setting_error": "Option in config not exist",
+  "actions_list_load_error": "Could not load actions' list",
   "action_load_error": "Could not load action module",
-  "db_write_error": "Could not write to database"
+  "db_write_error": "Could not write to database",
 }
