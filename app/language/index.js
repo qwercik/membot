@@ -1,22 +1,36 @@
-import config from 'config/config'
 import fs from 'fs'
-import LanguageError from 'app/exceptions/LanguageError'
-
-const path = `app/language/${config['language']}.json`
+import ApplicationError from 'app/exceptions/ApplicationError'
 
 let json
-try {
-  json = JSON.parse(fs.readFileSync(path))
-} catch (error) {
-  throw new LanguageError('Such language doesn\'t exist!')
+
+function loadFromFile (path) {
+  let content
+  try {
+    content = fs.readFileSync(path)
+  } catch (error) {
+    throw new ApplicationError('Such language doesn\'t exist')
+  }
+
+  try {
+    json = JSON.parse(content)
+  } catch (error) {
+    throw new ApplicationError('Syntax error in language file')
+  }
 }
 
-export default function language (key) {
+function language (key) {
+  if (json === undefined) {
+    throw new ApplicationError('Language file not loaded yet')
+  }
+
   const translation = json[key]
 
   if (translation === undefined) {
-    throw new LanguageError(`Translation '${key}' not exist. Check ${path} language file.`)
+    throw new ApplicationError(`Translation '${key}' not exist. Check ${path} language file.`)
   }
 
   return translation
 }
+
+language.loadFromFile = loadFromFile
+export default language
