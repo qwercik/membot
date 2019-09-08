@@ -1,4 +1,4 @@
-import Action from 'app/mediator/Action'
+import Action from 'app/plugin-system/Action'
 import language from 'app/language'
 
 export default class HelpAction extends Action {

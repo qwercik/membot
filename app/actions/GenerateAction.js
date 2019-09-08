@@ -3,7 +3,7 @@ import PicturesManager from 'app/utils/PicturesManager'
 import db from 'app/db'
 import language from 'app/language'
 import config from 'config/config'
-import Action from 'app/mediator/Action'
+import Action from 'app/plugin-system/Action'
 
 function generatePictureName () {
   const date = new Date()

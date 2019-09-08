@@ -1,4 +1,4 @@
-import Action from 'app/mediator/Action'
+import Action from 'app/plugin-system/Action'
 import db from 'app/db'
 import language from 'app/language'
 

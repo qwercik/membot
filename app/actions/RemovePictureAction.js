@@ -1,6 +1,6 @@
 import language from 'app/language'
 import PicturesManager from 'app/utils/PicturesManager'
-import Action from 'app/mediator/Action'
+import Action from 'app/plugin-system/Action'
 
 export default class RemovePictureAction extends Action {
   getName () {

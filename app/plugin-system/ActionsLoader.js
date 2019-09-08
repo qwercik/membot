@@ -1,7 +1,7 @@
 import fs from 'fs'
 import util from 'util'
 import ApplicationError from 'app/exceptions/ApplicationError'
-import ActionValidator from 'app/mediator/ActionValidator'
+import ActionValidator from 'app/plugin-system/ActionValidator'
 import language from '../language'
 import { forceEndingWith } from 'app/utils'
 
@@ -19,7 +19,7 @@ export default class ActionsLoader {
     } catch (error) {
       throw new ApplicationError(language('actions_list_load_error'))
     }
-
+    
     return actions
   }
 
