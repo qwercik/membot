@@ -2,7 +2,8 @@ import language from 'app/language'
 import PicturesManager from 'app/utils/PicturesManager'
 
 export default {
-  actions: ['new-picture', 'n'],
+  name: 'new-picture',
+  aliases: ['n'],
   description: language('action_new-picture_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ },

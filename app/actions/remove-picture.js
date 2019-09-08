@@ -2,7 +2,8 @@ import language from 'app/language'
 import PicturesManager from 'app/utils/PicturesManager'
 
 export default {
-  actions: ['remove-picture', 'r'],
+  name: 'remove-picture',
+  aliases: ['r'],
   description: language('action_remove-picture_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ }

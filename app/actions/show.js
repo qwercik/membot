@@ -2,7 +2,8 @@ import db from 'app/db'
 import language from 'app/language'
 
 export default {
-  actions: ['show', 's'],
+  name: 'show',
+  aliases: ['s'],
   description: language('action_show_description'),
   arguments: [
     { name: 'pictureName', pattern: /^(?!\s*$).+/ }

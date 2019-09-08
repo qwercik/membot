@@ -2,7 +2,8 @@ import db from 'app/db'
 import language from 'app/language'
 
 export default {
-  actions: ['list', 'l'],
+  name: 'list',
+  aliases: ['l'],
   description: language('action_list_description'),
   arguments: [],
   callback: async function (parsed) {

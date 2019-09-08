@@ -15,7 +15,8 @@ function isHttpUrl (text) {
 }
 
 export default {
-  actions: ['generate', 'g'],
+  name: 'generate',
+  aliases: ['g'],
   description: language('action_generate_description'),
   arguments: [
     { name: 'pictureReference', pattern: /^(?!\s*$).+/ },

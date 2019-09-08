@@ -16,8 +16,8 @@ export default class ActionsHandler {
     if (!parsed.isCommand || !this.commands.includes(parsed.command)) {
       return
     }
-
-    const action = this.actions.find(el => el.actions.includes(parsed.action))
+    
+    const action = this.actions.find(el => el.aliases.concat([el.name]).includes(parsed.action))
     if (!action) {
       throw new ActionError(language('unknown_command_error'))
     }
@@ -36,6 +36,6 @@ export default class ActionsHandler {
     }
 
     parsed.arguments = argumentsObject
-    await action.callback(parsed)
+    await action.callback(parsed, this)
   }
 }
