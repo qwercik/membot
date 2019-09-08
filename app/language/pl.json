@@ -25,7 +25,8 @@
   "config_syntax_error": "Błąd składniowy w pliku konfiguracyjnym",
   "config_setting_error": "Nie istnieje opcja w pliku konfiguracyjnym",
   "actions_list_load_error": "Nie udało się wczytać listy akcji",
-  "action_load_error": "Nie udało się wczytać modułu akcji",
+  "action_load_error": "Nie udało się wczytać klasy akcji",
+  "action_incorrect_error": "Klasa akcji jest niepoprawna",
   "db_write_error": "Nie udało się zapisać do bazy danych",
   "unknown_error": "Wystąpił nieznany błąd",
   "action_help_description": "Pokaż listę akcji wraz z ich opisami"

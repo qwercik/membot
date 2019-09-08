@@ -37,7 +37,6 @@ export default class GenerateAction extends Action {
   }
 
   async callback (parsed) {
-    console.log(parsed)
     const channel = parsed.message.channel
     const { pictureReference, topText, bottomText } = parsed.arguments
 

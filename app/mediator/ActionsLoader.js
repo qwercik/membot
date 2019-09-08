@@ -1,6 +1,7 @@
 import fs from 'fs'
 import util from 'util'
 import ApplicationError from 'app/exceptions/ApplicationError'
+import ActionValidator from 'app/mediator/ActionValidator'
 import language from '../language'
 import { forceEndingWith } from 'app/utils'
 
@@ -25,15 +26,18 @@ export default class ActionsLoader {
   async loadActionsModules (actionsHandler) {
     const actions = await this.getActionsList()
 
-    for (const action of actions) {
+    for (const actionName of actions) {
+      let action
       try {
-        const path = this.actionsDirectory + action
+        const path = this.actionsDirectory + actionName
         const ActionClass = (await import(path)).default
-
-        actionsHandler.addAction(new ActionClass())
+        action = new ActionClass()
       } catch (error) {
         throw new ApplicationError(`${language('action_load_error')} ${action}`)
       }
+
+      ActionValidator.validate(action)
+      actionsHandler.addAction(action)
     }
   }
 }
