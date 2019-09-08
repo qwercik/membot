@@ -14,7 +14,7 @@ export default class ActionsLoader {
   async getActionsList () {
     let actions = []
     try {
-      actions = await readdir('app/actions')
+      actions = (await readdir('app/actions')).filter(name => name.endsWith('.js'))
     } catch (error) {
       throw new ApplicationError(language('actions_list_load_error'))
     }
@@ -28,9 +28,9 @@ export default class ActionsLoader {
     for (const action of actions) {
       try {
         const path = this.actionsDirectory + action
-        const module = (await import(path)).default
+        const ActionClass = (await import(path)).default
 
-        actionsHandler.addAction(module)
+        actionsHandler.addAction(new ActionClass())
       } catch (error) {
         throw new ApplicationError(`${language('action_load_error')} ${action}`)
       }

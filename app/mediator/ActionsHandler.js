@@ -16,16 +16,17 @@ export default class ActionsHandler {
     if (!parsed.isCommand || !this.commands.includes(parsed.command)) {
       return
     }
-    
-    const action = this.actions.find(el => el.aliases.concat([el.name]).includes(parsed.action))
+
+    const action = this.actions.find(el => el.isCalled(parsed))
     if (!action) {
       throw new ActionError(language('unknown_command_error'))
     }
 
     const argumentsObject = {}
-    for (let index = 0; index < action.arguments.length; ++index) {
-      const name = action.arguments[index].name
-      const pattern = action.arguments[index].pattern
+    const actionArguments = action.getArguments()
+    for (let index = 0; index < action.getArguments().length; ++index) {
+      const name = actionArguments[index].name
+      const pattern = actionArguments[index].pattern
       const value = parsed.arguments[index] || ''
 
       if (!pattern.test(value)) {

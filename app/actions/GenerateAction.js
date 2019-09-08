@@ -3,6 +3,7 @@ import PicturesManager from 'app/utils/PicturesManager'
 import db from 'app/db'
 import language from 'app/language'
 import config from 'config/config'
+import Action from 'app/mediator/Action'
 
 function generatePictureName () {
   const date = new Date()
@@ -14,16 +15,29 @@ function isHttpUrl (text) {
   return pattern.test(text)
 }
 
-export default {
-  name: 'generate',
-  aliases: ['g'],
-  description: language('action_generate_description'),
-  arguments: [
-    { name: 'pictureReference', pattern: /^(?!\s*$).+/ },
-    { name: 'topText', pattern: /^.*$/ },
-    { name: 'bottomText', pattern: /^.*$/ }
-  ],
-  callback: async function (parsed) {
+export default class GenerateAction extends Action {
+  getName () {
+    return 'generate'
+  }
+
+  getAliases () {
+    return ['g']
+  }
+
+  getDescription () {
+    return language('action_generate_description')
+  }
+
+  getArguments () {
+    return [
+      { name: 'pictureReference', pattern: /^(?!\s*$).+/ },
+      { name: 'topText', pattern: /^.*$/ },
+      { name: 'bottomText', pattern: /^.*$/ }
+    ]
+  }
+
+  async callback (parsed) {
+    console.log(parsed)
     const channel = parsed.message.channel
     const { pictureReference, topText, bottomText } = parsed.arguments
 

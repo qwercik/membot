@@ -1,14 +1,27 @@
 import db from 'app/db'
 import language from 'app/language'
+import Action from 'app/mediator/Action'
 
-export default {
-  name: 'show',
-  aliases: ['s'],
-  description: language('action_show_description'),
-  arguments: [
-    { name: 'pictureName', pattern: /^(?!\s*$).+/ }
-  ],
-  callback: async function (parsed) {
+export default class ShowAction extends Action {
+  getName () {
+    return 'show'
+  }
+
+  getAliases () {
+    return ['s']
+  }
+
+  getDescription () {
+    return language('action_show_description')
+  }
+
+  getArguments () {
+    return [
+      { name: 'pictureName', pattern: /^(?!\s*$).+/ }
+    ]
+  }
+
+  async callback (parsed) {
     const channel = parsed.message.channel
 
     const { pictureName } = parsed.arguments
