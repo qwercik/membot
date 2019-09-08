@@ -19,9 +19,9 @@ export default class RemovePictureAction extends Action {
     return { name: 'pictureName', pattern: /^(?!\s*$).+/ }
   }
 
-  async callback (parsed) {
-    const channel = parsed.message.channel
-    const { pictureName } = parsed.arguments
+  async callback (message) {
+    const channel = message.rawMessage.channel
+    const { pictureName } = message.arguments
 
     await PicturesManager.remove(pictureName)
     channel.send(language('picture_removed'))

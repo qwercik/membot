@@ -20,9 +20,9 @@ export default class HelpAction extends Action {
     ]
   }
 
-  async callback (parsed, handler) {
-    const channel = parsed.message.channel
-    const { actionName } = parsed.arguments
+  async callback (message, handler) {
+    const channel = message.rawMessage.channel
+    const { actionName } = message.arguments
 
     if (actionName === '') {
       const message = 'Lista akcji: ' + handler.actions.map(action => action.getName()).join(', ') + '\n'
@@ -30,7 +30,7 @@ export default class HelpAction extends Action {
 
       channel.send(message)
     } else {
-      channel.send(handler.actions.find(action => action.isCalled(parsed)).getDescription())
+      channel.send(handler.actions.find(action => action.isCalled(message)).getDescription())
     }
   }
 }

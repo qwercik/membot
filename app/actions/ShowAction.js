@@ -21,10 +21,10 @@ export default class ShowAction extends Action {
     ]
   }
 
-  async callback (parsed) {
-    const channel = parsed.message.channel
+  async callback (message) {
+    const channel = message.rawMessage.channel
 
-    const { pictureName } = parsed.arguments
+    const { pictureName } = message.arguments
     const picture = db.get('pictures')
       .find({ name: pictureName })
       .value()

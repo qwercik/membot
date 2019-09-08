@@ -15,8 +15,8 @@ export default class ListAction extends Action {
     return language('action_list_description')
   }
 
-  async callback (parsed) {
-    const channel = parsed.message.channel
+  async callback (message) {
+    const channel = message.rawMessage.channel
 
     const picturesList = db.get('pictures')
       .map('name')

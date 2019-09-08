@@ -22,9 +22,9 @@ export default class NewPictureAction extends Action {
     ]
   }
 
-  async callback (parsed) {
-    const channel = parsed.message.channel
-    const { pictureName, pictureUrl } = parsed.arguments
+  async callback (message) {
+    const channel = message.rawMessage.channel
+    const { pictureName, pictureUrl } = message.arguments
 
     await PicturesManager.create(pictureName, pictureUrl)
     channel.send(language('new_picture_created'))

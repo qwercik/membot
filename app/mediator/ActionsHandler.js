@@ -12,12 +12,12 @@ export default class ActionsHandler {
     return this
   }
 
-  async handle (parsed) {
-    if (!parsed.isCommand || !this.commands.includes(parsed.command)) {
+  async handle (message) {
+    if (!message.isCommand || !this.commands.includes(message.command)) {
       return
     }
 
-    const action = this.actions.find(el => el.isCalled(parsed))
+    const action = this.actions.find(el => el.isCalled(message))
     if (!action) {
       throw new ActionError(language('unknown_command_error'))
     }
@@ -27,7 +27,7 @@ export default class ActionsHandler {
     for (let index = 0; index < action.getArguments().length; ++index) {
       const name = actionArguments[index].name
       const pattern = actionArguments[index].pattern
-      const value = parsed.arguments[index] || ''
+      const value = message.arguments[index] || ''
 
       if (!pattern.test(value)) {
         throw new ActionError(language('incorrect_usage_error'))
@@ -36,7 +36,7 @@ export default class ActionsHandler {
       argumentsObject[name] = value
     }
 
-    parsed.arguments = argumentsObject
-    await action.callback(parsed, this)
+    message.arguments = argumentsObject
+    await action.callback(message, this)
   }
 }

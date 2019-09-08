@@ -25,12 +25,12 @@ export default class Bot {
       console.log(language('connected_info'))
     })
 
-    this.discordClient.on('message', async message => {
-      const parsed = CommandParser.parse(message)
-      const channel = parsed.message.channel
+    this.discordClient.on('message', async rawMessage => {
+      const message = CommandParser.parse(rawMessage)
+      const channel = message.rawMessage.channel
 
       try {
-        await this.actionsHandler.handle(parsed)
+        await this.actionsHandler.handle(message)
       } catch (error) {
         if (error.name === 'ActionError') {
           channel.send(error.message)
