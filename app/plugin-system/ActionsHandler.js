@@ -12,6 +12,10 @@ export default class ActionsHandler {
     return this
   }
 
+  getActions () {
+    return this.actions
+  }
+
   async handle (message) {
     if (!this.command.isCalled(message)) {
       return

@@ -27,6 +27,7 @@
   "actions_list_load_error": "Could not load actions' list",
   "action_load_error": "Could not load action from file",
   "action_incorrect_error": "Action's class is incorrect",
+  "action_not_exist": "Action with given name not exist",
   "db_write_error": "Could not write to database",
   "unknown_error": "Unknown error ocurred",
   "action_help_description": "Show actions' list and its' descriptions"

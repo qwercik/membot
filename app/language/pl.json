@@ -27,6 +27,7 @@
   "actions_list_load_error": "Nie udało się wczytać listy akcji",
   "action_load_error": "Nie udało się wczytać akcji z pliku",
   "action_incorrect_error": "Klasa akcji jest niepoprawna",
+  "action_not_exist": "Akcja o podanej nazwie nie istnieje",
   "db_write_error": "Nie udało się zapisać do bazy danych",
   "unknown_error": "Wystąpił nieznany błąd",
   "action_help_description": "Pokaż listę akcji wraz z ich opisami"
