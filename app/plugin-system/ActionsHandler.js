@@ -28,13 +28,18 @@ export default class ActionsHandler {
 
     const argumentsObject = {}
     const actionArguments = action.getArguments()
-    for (let index = 0; index < action.getArguments().length; ++index) {
+
+    if (message.arguments.length > actionArguments.length) {
+      throw new ActionError(`${language('incorrect_usage_error')} - ${language('too_much_parameters_error')}`)
+    }
+
+    for (let index = 0; index < actionArguments.length; ++index) {
       const name = actionArguments[index].name
       const pattern = actionArguments[index].pattern
       const value = message.arguments[index] || ''
 
       if (!pattern.test(value)) {
-        throw new ActionError(language('incorrect_usage_error'))
+        throw new ActionError(`${language('incorrect_usage_error')} - ${language('parameter_incorrect_error')}`)
       }
 
       argumentsObject[name] = value

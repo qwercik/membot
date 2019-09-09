@@ -36,5 +36,7 @@
   "top_text_argument_description": "Text to place on the top of meme",
   "bottom_text_argument_description": "Text to place on the bottom of meme",
   "picture_name_argument_description": "Name of picture",
-  "picture_url_argument_description": "Picture URL"
+  "picture_url_argument_description": "Picture URL",
+  "too_much_parameters_error": "Too much parameters",
+  "parameter_incorrect_error": "One of parameters is incorrect"
 }
