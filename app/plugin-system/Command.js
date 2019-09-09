@@ -5,6 +5,6 @@ export default class Command {
   }
 
   isCalled (message) {
-    return this.aliases.concat([this.name]).includes(message.command)
+    return message.isCommand && this.aliases.concat([this.name]).includes(message.command)
   }
 }

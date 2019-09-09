@@ -2,16 +2,14 @@ import Discord from 'discord.js'
 import ActionsLoader from 'app/plugin-system/ActionsLoader'
 import ActionsHandler from 'app/plugin-system/ActionsHandler'
 import CommandParser from 'app/plugin-system/CommandParser'
+import Command from 'app/plugin-system/Command'
 import language from 'app/language'
 import config from 'app/config'
-import fs from 'fs'
-import util from 'util'
-import Command from 'app/plugin-system/Command'
 
 export default class Bot {
   async setUpActionsHandler () {
     const actionsLoader = new ActionsLoader('app/actions')
-    this.actionsHandler = new ActionsHandler(new Command (
+    this.actionsHandler = new ActionsHandler(new Command(
       config('commandName'),
       config('commandAliases')
     ))
@@ -27,7 +25,7 @@ export default class Bot {
     })
 
     this.discordClient.on('message', async rawMessage => {
-      const message = CommandParser.parse(rawMessage)
+      const message = CommandParser.parse(rawMessage, config('commandPrefix'))
       const channel = message.rawMessage.channel
 
       try {

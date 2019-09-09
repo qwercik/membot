@@ -25,7 +25,7 @@
   "config_syntax_error": "Syntax error in config file",
   "config_setting_error": "Option in config not exist",
   "actions_list_load_error": "Could not load actions' list",
-  "action_load_error": "Could not load action class",
+  "action_load_error": "Could not load action from file",
   "action_incorrect_error": "Action's class is incorrect",
   "db_write_error": "Could not write to database",
   "unknown_error": "Unknown error ocurred",

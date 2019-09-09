@@ -13,7 +13,7 @@ export default class ActionsHandler {
   }
 
   async handle (message) {
-    if (!message.isCommand || !this.command.isCalled(message)) {
+    if (!this.command.isCalled(message)) {
       return
     }
 

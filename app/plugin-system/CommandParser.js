@@ -1,8 +1,6 @@
 import DiscordCommandParser from 'discord-command-parser'
-import config from 'app/config'
 
-function parse (rawMessage) {
-  const prefix = config('commandPrefix')
+function parse (rawMessage, prefix) {
   const message = DiscordCommandParser.parse(rawMessage, prefix)
 
   return {
@@ -11,7 +9,7 @@ function parse (rawMessage) {
     command: message.command || '',
     action: message.arguments[0] || '',
     arguments: message.arguments.slice(1).map(arg => arg || ''),
-    isCommand: message.success,
+    isCommand: message.success
   }
 }
 
