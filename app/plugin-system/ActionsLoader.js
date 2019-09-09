@@ -19,7 +19,7 @@ export default class ActionsLoader {
     } catch (error) {
       throw new ApplicationError(language('actions_list_load_error'))
     }
-    
+
     return actions
   }
 

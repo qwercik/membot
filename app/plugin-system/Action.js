@@ -15,7 +15,7 @@ export default class Action {
     return []
   }
 
-  isCalled (parsed) {
-    return this.getAliases().concat([this.getName()]).includes(parsed.action)
+  isCalled (message) {
+    return this.getAliases().concat([this.getName()]).includes(message.action)
   }
 }

@@ -8,8 +8,8 @@ function parse (rawMessage) {
   return {
     rawMessage,
     prefix,
-    command: message.command,
-    action: message.arguments[0],
+    command: message.command || '',
+    action: message.arguments[0] || '',
     arguments: message.arguments.slice(1).map(arg => arg || ''),
     isCommand: message.success,
   }

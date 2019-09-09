@@ -6,14 +6,15 @@ import language from 'app/language'
 import config from 'app/config'
 import fs from 'fs'
 import util from 'util'
-import ApplicationError from 'app/exceptions/ApplicationError'
-
-const readdir = util.promisify(fs.readdir)
+import Command from 'app/plugin-system/Command'
 
 export default class Bot {
   async setUpActionsHandler () {
-    this.actionsHandler = new ActionsHandler(config('commands'))
     const actionsLoader = new ActionsLoader('app/actions')
+    this.actionsHandler = new ActionsHandler(new Command (
+      config('commandName'),
+      config('commandAliases')
+    ))
 
     await actionsLoader.loadActionsModules(this.actionsHandler)
   }

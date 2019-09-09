@@ -2,9 +2,9 @@ import language from 'app/language'
 import ActionError from 'app/exceptions/ActionError'
 
 export default class ActionsHandler {
-  constructor (commands) {
+  constructor (command) {
     this.actions = []
-    this.commands = commands
+    this.command = command
   }
 
   addAction (action) {
@@ -13,7 +13,7 @@ export default class ActionsHandler {
   }
 
   async handle (message) {
-    if (!message.isCommand || !this.commands.includes(message.command)) {
+    if (!message.isCommand || !this.command.isCalled(message)) {
       return
     }
 
