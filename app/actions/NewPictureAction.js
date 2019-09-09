@@ -17,8 +17,8 @@ export default class NewPictureAction extends Action {
 
   getArguments () {
     return [
-      { name: 'pictureName', pattern: /^(?!\s*$).+/ },
-      { name: 'pictureUrl', pattern: /https?:\/\/(www\.)?[-a-za-z0-9@:%._+~#=]{1,256}\.[a-za-z0-9()]{1,6}\b([-a-za-z0-9()@:%_+.~#?&//=]*)/ }
+      { name: 'pictureName', pattern: /^(?!\s*$).+/, description: language('picture_name_argument_description') },
+      { name: 'pictureUrl', pattern: /https?:\/\/(www\.)?[-a-za-z0-9@:%._+~#=]{1,256}\.[a-za-z0-9()]{1,6}\b([-a-za-z0-9()@:%_+.~#?&//=]*)/, description: language('picture_url_argument_description') }
     ]
   }
 

@@ -30,5 +30,11 @@
   "action_not_exist": "Akcja o podanej nazwie nie istnieje",
   "db_write_error": "Nie udało się zapisać do bazy danych",
   "unknown_error": "Wystąpił nieznany błąd",
-  "action_help_description": "Pokaż listę akcji wraz z ich opisami"
+  "action_help_description": "Pokaż listę akcji wraz z ich opisami",
+  "action_name_argument_description": "Nazwa akcji",
+  "picture_reference_argument_description": "Źródło mema (nazwa lub URL)",
+  "top_text_argument_description": "Tekst do umieszczenia na górze mema",
+  "bottom_text_argument_description": "Tekst do umieszczenia na dole mema",
+  "picture_name_argument_description": "Nazwa obrazka",
+  "picture_url_argument_description": "Picture URL"
 }

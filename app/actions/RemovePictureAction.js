@@ -16,7 +16,7 @@ export default class RemovePictureAction extends Action {
   }
 
   getArguments () {
-    return { name: 'pictureName', pattern: /^(?!\s*$).+/ }
+    return { name: 'pictureName', pattern: /^(?!\s*$).+/, description: language('picture_name_argument_description') }
   }
 
   async callback (message) {

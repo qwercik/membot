@@ -30,5 +30,11 @@
   "action_not_exist": "Action with given name not exist",
   "db_write_error": "Could not write to database",
   "unknown_error": "Unknown error ocurred",
-  "action_help_description": "Show actions' list and its' descriptions"
+  "action_help_description": "Show actions' list and its' descriptions",
+  "action_name_argument_description": "Name of action",
+  "picture_reference_argument_description": "Source of meme (name or URL)",
+  "top_text_argument_description": "Text to place on the top of meme",
+  "bottom_text_argument_description": "Text to place on the bottom of meme",
+  "picture_name_argument_description": "Name of picture",
+  "picture_url_argument_description": "Picture URL"
 }

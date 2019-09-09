@@ -11,11 +11,19 @@ export default class Action {
     return ''
   }
 
+  getHelp () {
+    return ''
+  }
+
   getArguments () {
     return []
   }
 
+  getAllReferenceNames () {
+    return this.getAliases().concat([this.getName()])
+  }
+
   isCalled (message) {
-    return this.getAliases().concat([this.getName()]).includes(message.action)
+    return this.getAllReferenceNames().includes(message.action)
   }
 }

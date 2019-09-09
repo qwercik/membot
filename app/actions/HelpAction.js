@@ -18,7 +18,7 @@ export default class HelpAction extends Action {
 
   getArguments () {
     return [
-      { name: 'actionName', pattern: /^.*$/}
+      { name: 'actionName', pattern: /^.*$/, description: language('action_name_argument_description') }
     ]
   }
 
@@ -46,14 +46,18 @@ export default class HelpAction extends Action {
 
       channel.send(helpMessage)
     } else {
-      const action = actionsList.find(action => action.getName() === actionName)
+      const action = actionsList.find(action => action.getAllReferenceNames().includes(actionName))
       if (action === undefined) {
         throw new ActionError(language('action_not_exist'))
       }
 
+      const argumentsString = action.getArguments().map(argument => `- ${argument.name} - ${argument.description}`).join('\n')
+
       const actionString = dedent`
         Akcja: ${action.getName()}
         Aliasy: ${action.getAliases().join(', ')}
+        Argumenty:
+        ${argumentsString}
         Opis: ${action.getDescription()}
       `
 
