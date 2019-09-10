@@ -12,7 +12,6 @@
 		"app-module-path": "^2.2.0",
 		"axios": "^0.19.0",
 		"canvas": "^2.5.0",
-		"dedent-js": "^1.0.1",
 		"discord-command-parser": "^1.2.1",
 		"discord.js": "^11.5.1",
 		"eslint-utils": "^1.4.2",
