@@ -17,7 +17,7 @@ export default class ShowAction extends Action {
 
   getArguments () {
     return [
-      { name: 'pictureName', pattern: /^(?!\s*$).+/, description: language('picture_name_argument_name') }
+      { name: 'pictureName', pattern: /^(?!\s*$).+/, description: language('picture_name_argument_description') }
     ]
   }
 
