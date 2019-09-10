@@ -26,30 +26,23 @@ export default class HelpAction extends Action {
     const { actionName } = message.arguments
     const actionsList = handler.getActions()
 
+    let messageContent
     if (actionName === '') {
       const actionsListString = actionsList.map(action => `${action.getName()} - ${action.getDescription()}`).join('\n')
 
-      try {
-        await author.send({
-          embed: {
-            color: 0x40ABF7,
-            title: 'Instrukcja korzystania z bota',
-            description: 'Witaj! Ten bot umożliwia Ci generowanie memów z zapisanych wcześniej obrazków lub bezpośrednio z adresu URL. Poniżej znajduje się krótka instrukcja obsługi.',
-            fields: [
-              { name: 'Składnia poleceń', value: 'Każda komenda ma następujący format:\n<prefix><komenda> <akcja> [argumenty]\nKomenda, akcja oraz poszczególne argumenty, rozdzielane są spacjami. Aby w jednym argumencie zawrzeć kilka argumentów, należy zawrzeć jego treść w cudzysłowy.' },
-              { name: 'Aliasy', value: 'Do komendy oraz akcji odwołujemy się podając jej nazwę. Istnieje jednak możliwość tworzenia aliasów dla poszczególnych komend. Dzięki nim, można stosować krótsze nazwy.' },
-              { name: 'Przykłady', value: '!membot generate nosacz "Kiedyś to było" "Kuurła"\n!m g pechowiec-brian Usunął "katalog .git/"' },
-              { name: 'Lista akcji', value: actionsListString },
-              { name: 'Dowiedz się więcej', value: 'Aby dowiedzieć się czegoś więcej o którejś z akcji, użyj komendy !membot help <akcja>\nNa przykład: !membot help generate' }
-            ]
-          }
-        })
-      } catch (error) {
-        throw new ActionError(`${author}, bardzo proszę Cię o odblokowanie wiadomości prywatnych. Inaczej nie będziesz mógł przeczytać instrukcji :cry:`)
-      }
-
-      if (!message.isPrivate()) {
-        channel.send(`${author}, wysłałem Ci instrukcję w wiadomości prywatnej :wink:`)
+      messageContent = {
+        embed: {
+          color: 0x40ABF7,
+          title: language('bot_help_title'),
+          description: language('bot_help_description'),
+          fields: [
+            { name: language('section_instructions_syntax_title'), value: language('section_instructions_syntax_content') },
+            { name: language('section_aliases_title'), value: language('section_aliases_content') },
+            { name: language('section_examples_title'), value: language('section_examples_content') },
+            { name: language('section_actions_list_title'), value: actionsListString },
+            { name: language('section_learn_more_title'), value: language('section_learn_more_content') }
+          ]
+        }
       }
     } else {
       const action = actionsList.find(action => action.getAllReferenceNames().includes(actionName))
@@ -58,19 +51,29 @@ export default class HelpAction extends Action {
       }
 
       const allReferenceNamesString = action.getAllReferenceNames().join(', ')
-      const argumentsString = action.getArguments().map(argument => `${argument.name} - ${argument.description}`).join('\n') || 'Brak argumentów'
+      const argumentsString = action.getArguments().map(argument => `${argument.name} - ${argument.description}`).join('\n') || language('no_arguments')
 
-      channel.send({
+      messageContent = {
         embed: {
           color: 0x40ABF7,
-          title: `Akcja ${action.getName()}`,
+          title: `${language('action')} ${action.getName()}`,
           description: action.getDescription(),
           fields: [
-            { name: 'Dostępne aliasy', value: `Do tej akcji możesz odwoływać się poprzez jedną z następujących nazw: ${allReferenceNamesString}` },
-            { name: 'Argumenty', value: argumentsString }
+            { name: language('available_aliases'), value: `${language('available_aliases_text')}: ${allReferenceNamesString}` },
+            { name: language('arguments'), value: argumentsString }
           ]
         }
-      })
+      }
+    }
+
+    try {
+      await author.send(messageContent)
+    } catch (error) {
+      throw new ActionError(`${author}, ${language('priv_unblock_request')}`)
+    }
+
+    if (!message.isPrivate()) {
+      channel.send(`${author}, ${language('help_send_in_priv')}`)
     }
   }
 }
