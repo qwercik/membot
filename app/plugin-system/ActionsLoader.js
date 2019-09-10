@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import ApplicationError from 'app/exceptions/ApplicationError'
 import ActionValidator from 'app/plugin-system/ActionValidator'
 import language from 'app/language'
@@ -12,15 +13,14 @@ export default class ActionsLoader {
   async getActionsFilesList () {
     let actions = []
     try {
-      actions = fs.readdirSync(this.actionsDirectory).map(name => {
-        const parts = name.split('.')
-        if (parts.length === 1) {
-          return name
-        }
+      actions = fs.readdirSync(this.actionsDirectory).filter(filename => {
+        const path = this.actionsDirectory + filename
+        const stat = fs.lstatSync(path)
 
-        return name.split('.').slice(0, -1)
+        return (stat.isFile() && filename.endsWith('.js')) || (stat.isDirectory() && fs.existsSync(forceEndingWith(path, '/') + 'index.js'))
       })
     } catch (error) {
+      console.error(error)
       throw new ApplicationError(language('actions_list_load_error'))
     }
 
