@@ -30,7 +30,7 @@ export default class GenerateAction extends Action {
 
   getArguments () {
     return [
-      { name: 'pictureReference', pattern: /^(?!\s*$).+/, description: language('picture_reference_argument_description')},
+      { name: 'pictureReference', pattern: /^(?!\s*$).+/, description: language('picture_reference_argument_description') },
       { name: 'topText', pattern: /^.*$/, description: language('top_text_argument_description') },
       { name: 'bottomText', pattern: /^.*$/, description: language('bottom_text_argument_description') }
     ]
