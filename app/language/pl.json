@@ -38,5 +38,22 @@
   "picture_name_argument_description": "Nazwa obrazka",
   "picture_url_argument_description": "Adres URL obrazka",
   "too_much_parameters_error": "Zbyt dużo parametrów",
-  "parameter_incorrect_error": "Jeden z parametrów jest niepoprawny"
+  "parameter_incorrect_error": "Jeden z parametrów jest niepoprawny",
+  "action": "Akcja",
+  "available_aliases": "Dostępne aliasy",
+  "available_aliases_text": "Do tej akcji możesz odwoływać się poprzez jedną z następujących nazw",
+  "no_arguments": "Brak argumentów",
+  "help_send_in_priv": "wysłałem Ci nieco informacji w wiadomości prywatnej :wink:",
+  "priv_unblock_request": "bardzo proszę Cię o odblokowanie wiadomości prywatnych. Jeśli tego nie zrobisz, nie będziesz mógł przeczytać instrukcji :cry:",
+  "bot_help_title": "Instrukcja obsługi bota",
+  "bot_help_description": "Witaj! Ten bot umożliwia Ci generowanie memów z zapisanych wcześniej obrazków lub bezpośrednio z adresu URL. Poniżej znajduje się krótka instrukcja obsługi.",
+  "section_instructions_syntax_title": "Składnia poleceń",
+  "section_instructions_syntax_content": "Każda komenda ma następujący format:\n<prefix><komenda> <akcja> [argumenty]\nKomenda, akcja oraz poszczególne argumenty, rozdzielane są spacjami. Aby w jednym argumencie zawrzeć kilka argumentów, należy zawrzeć jego treść w cudzysłowy.",
+  "section_aliases_title": "Aliasy",
+  "section_aliases_content": "Do komendy oraz akcji odwołujemy się podając jej nazwę. Istnieje jednak możliwość tworzenia aliasów dla poszczególnych komend. Dzięki nim, można stosować krótsze nazwy.",
+  "section_examples_title": "Przykłady",
+  "section_examples_content": "!membot generate nosacz \"Kiedyś to było\" Kuurła\n!m g pechowiec-brian Usunął \"katalog .git/\"",
+  "section_actions_list_title": "Lista akcji",
+  "section_learn_more_title": "Dowiedz się więcej",
+  "section_learn_more_content": "Użyj następującej komendy: !membot help <akcja>\nNa przykład !membot help generate\naby dowiedzieć się czegoś więcej"
 }

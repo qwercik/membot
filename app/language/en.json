@@ -38,5 +38,22 @@
   "picture_name_argument_description": "Name of picture",
   "picture_url_argument_description": "Picture URL",
   "too_much_parameters_error": "Too much parameters",
-  "parameter_incorrect_error": "One of parameters is incorrect"
+  "parameter_incorrect_error": "One of parameters is incorrect",
+  "action": "Action",
+  "available_aliases": "Available aliases",
+  "available_aliases_text": "You can reference to this action using one of the following names",
+  "no_arguments": "There are no any arguments",
+  "help_send_in_priv": "I sent you some help in private message :wink:",
+  "priv_unblock_request": "Could you unblock private messages? Otherwise, I won't be able to send you instructions",
+  "bot_help_title": "Bot instruction manual",
+  "bot_help_description": "Welcome! This bot lets you generating memes from previously saved pictures or directly from URL. There's a short user manual below",
+  "section_instructions_syntax_title": "Instructions' syntax",
+  "section_instructions_syntax_content": "Everyone instruction has the same format:\n<prefix><command> <action> [arguments]\nCommand, action and particular arguments are separated with spaces. Take an argument' content between quotation marks to encapsulate more than one word.",
+  "section_aliases_title": "Aliases",
+  "section_aliases_content": "You can reference to command or action using its name. It's also a possibility to use one of aliases. Thanks to that, instructions can be shorter",
+  "section_examples_title": "Examples",
+  "section_examples_content": "!membot generate harold \"I am\" Harold\n!m g bad-luck-brian \"He removed\" \".git/ directory\"",
+  "section_actions_list_title": "List of actions",
+  "section_learn_more_title": "Learn more",
+  "section_learn_more_content": "Use the following command: !membot help <action>\nFor example: !membot help generate\nto learn something more"
 }

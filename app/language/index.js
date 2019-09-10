@@ -26,7 +26,7 @@ function language (key) {
   const translation = json[key]
 
   if (translation === undefined) {
-    throw new ApplicationError(`Translation '${key}' not exist. Check ${path} language file.`)
+    throw new ApplicationError(`Translation '${key}' not exist. Check your language file.`)
   }
 
   return translation
