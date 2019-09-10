@@ -58,7 +58,7 @@ export default class HelpAction extends Action {
       }
 
       const allReferenceNamesString = action.getAllReferenceNames().join(', ')
-      const argumentsString = action.getArguments().map(argument => `\t${argument.name} - ${argument.description}`).join('\n')
+      const argumentsString = action.getArguments().map(argument => `${argument.name} - ${argument.description}`).join('\n') || 'Brak argumentów'
 
       channel.send({
         embed: {
