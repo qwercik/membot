@@ -40,6 +40,7 @@
   "too_much_parameters_error": "Zbyt dużo parametrów",
   "parameter_incorrect_error": "Jeden z parametrów jest niepoprawny",
   "action": "Akcja",
+  "arguments": "Argumenty",
   "available_aliases": "Dostępne aliasy",
   "available_aliases_text": "Do tej akcji możesz odwoływać się poprzez jedną z następujących nazw",
   "no_arguments": "Brak argumentów",
