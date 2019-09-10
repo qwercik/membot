@@ -1,11 +1,8 @@
 import fs from 'fs'
-import util from 'util'
 import ApplicationError from 'app/exceptions/ApplicationError'
 import ActionValidator from 'app/plugin-system/ActionValidator'
 import language from 'app/language'
 import { forceEndingWith } from 'app/utils'
-
-const readdir = util.promisify(fs.readdir)
 
 export default class ActionsLoader {
   constructor (actionsDirectory) {
@@ -15,7 +12,14 @@ export default class ActionsLoader {
   async getActionsFilesList () {
     let actions = []
     try {
-      actions = (await readdir(this.actionsDirectory)).filter(name => name.endsWith('.js'))
+      actions = fs.readdirSync(this.actionsDirectory).map(name => {
+        const parts = name.split('.')
+        if (parts.length === 1) {
+          return name
+        }
+
+        return name.split('.').slice(0, -1)
+      })
     } catch (error) {
       throw new ApplicationError(language('actions_list_load_error'))
     }
