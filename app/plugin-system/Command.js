@@ -4,7 +4,11 @@ export default class Command {
     this.aliases = aliases
   }
 
+  getAllReferenceNames () {
+    return this.aliases.concat([this.name])
+  }
+
   isCalled (message) {
-    return message.isCommand && this.aliases.concat([this.name]).includes(message.command)
+    return message.isCommand && this.getAllReferenceNames().includes(message.command)
   }
 }

@@ -11,10 +11,6 @@ export default class Action {
     return ''
   }
 
-  getHelp () {
-    return ''
-  }
-
   getArguments () {
     return []
   }
