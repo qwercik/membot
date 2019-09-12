@@ -1,35 +1,18 @@
-import fs from 'fs'
-import ApplicationError from 'app/exceptions/ApplicationError'
+import JsonLoader from 'app/JsonLoader'
 
-let json
-
-function loadFromFile (path) {
-  let content
-  try {
-    content = fs.readFileSync(path)
-  } catch (error) {
-    throw new ApplicationError('Such language doesn\'t exist')
-  }
-
-  try {
-    json = JSON.parse(content)
-  } catch (error) {
-    throw new ApplicationError('Syntax error in language file')
-  }
-}
+const jsonLoader = new JsonLoader({
+  fileNotExist: 'Such language doesn\'t exist',
+  syntaxError: 'Syntax error in language file',
+  fileNotLoaded: 'Language file has\'t been loaded yet',
+  propertyNotExist: 'Translation {key} not exist. Check your language file'
+})
 
 function language (key) {
-  if (json === undefined) {
-    throw new ApplicationError('Language file not loaded yet')
-  }
+  return jsonLoader.getProperty(key)
+}
 
-  const translation = json[key]
-
-  if (translation === undefined) {
-    throw new ApplicationError(`Translation '${key}' not exist. Check your language file.`)
-  }
-
-  return translation
+function loadFromFile (path) {
+  jsonLoader.loadFromFile(path)
 }
 
 language.loadFromFile = loadFromFile
