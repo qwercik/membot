@@ -1,5 +1,5 @@
-import language from 'app/language'
-import ActionError from 'app/exceptions/ActionError'
+import language from '#app/language/index.js'
+import ActionError from '#app/exceptions/ActionError.js'
 
 export default class ActionsHandler {
   constructor (command) {

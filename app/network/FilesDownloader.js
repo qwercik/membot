@@ -1,17 +1,18 @@
-import fs from 'fs'
+import path from 'node:path'
+import fs from 'node:fs'
+import { pipeline } from 'node:stream/promises'
 import axios from 'axios'
-import language from 'app/language'
-import ActionError from 'app/exceptions/ActionError'
-import { forceEndingWith } from 'app/utils'
+import language from '#app/language/index.js'
+import ActionError from '#app/exceptions/ActionError.js'
 
 function getDownloadedFileType (response) {
   const contentType = response.headers['content-type']
 
   if (contentType) {
-    return contentType.split('/')[1]
-  } else {
-    return response.config.url.split('.').pop().toLowerCase()
+    return contentType.split('/')[1].split(';')[0].trim().toLowerCase()
   }
+
+  return response.config.url.split('.').pop().toLowerCase()
 }
 
 async function download (url, saveDirectory, nameWithoutExtension) {
@@ -33,20 +34,18 @@ async function download (url, saveDirectory, nameWithoutExtension) {
   const supportedFileTypes = ['jpg', 'jpeg', 'png', 'gif']
   const fileType = getDownloadedFileType(response)
   if (!supportedFileTypes.includes(fileType)) {
+    response.data.destroy()
     throw new ActionError(language('unsupported_filetype_error'))
   }
 
-  const fileName = nameWithoutExtension + '.' + fileType
-  const filePath = forceEndingWith(saveDirectory, '/') + fileName
+  const fileName = `${nameWithoutExtension}.${fileType}`
+  const filePath = path.join(saveDirectory, fileName)
 
-  let stream
   try {
-    stream = response.data.pipe(fs.createWriteStream(filePath))
+    await pipeline(response.data, fs.createWriteStream(filePath))
   } catch (error) {
     throw new ActionError(language('no_permissions_to_save_downloaded_file'))
   }
-
-  await (() => new Promise(resolve => stream.on('finish', resolve)))()
 
   return {
     name: fileName,

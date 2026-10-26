@@ -1,0 +1,5 @@
+.git
+node_modules
+config/config.json
+config/db.json
+assets

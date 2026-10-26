@@ -1,10 +1,10 @@
-import Discord from 'discord.js'
-import ActionsLoader from 'app/plugin-system/ActionsLoader'
-import ActionsHandler from 'app/plugin-system/ActionsHandler'
-import Message from 'app/plugin-system/Message'
-import Command from 'app/plugin-system/Command'
-import language from 'app/language'
-import config from 'app/config'
+import { Client, Events, GatewayIntentBits } from 'discord.js'
+import ActionsLoader from '#app/plugin-system/ActionsLoader.js'
+import ActionsHandler from '#app/plugin-system/ActionsHandler.js'
+import Message from '#app/plugin-system/Message.js'
+import Command from '#app/plugin-system/Command.js'
+import language from '#app/language/index.js'
+import config from '#app/config.js'
 
 export default class Bot {
   async setUpActionsHandler () {
@@ -18,13 +18,20 @@ export default class Bot {
   }
 
   setUpDiscordClient () {
-    this.discordClient = new Discord.Client()
+    this.discordClient = new Client({
+      intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.MessageContent
+      ]
+    })
 
-    this.discordClient.on('ready', () => {
+    this.discordClient.once(Events.ClientReady, () => {
       console.log(language('connected_info'))
     })
 
-    this.discordClient.on('message', async rawMessage => {
+    this.discordClient.on(Events.MessageCreate, async rawMessage => {
       const message = new Message(rawMessage, config('commandPrefix'))
       const channel = rawMessage.channel
 
@@ -32,9 +39,9 @@ export default class Bot {
         await this.actionsHandler.handle(message)
       } catch (error) {
         if (error.name === 'ActionError') {
-          channel.send(error.message)
+          await channel.send(error.message)
         } else {
-          throw error
+          console.error(error)
         }
       }
     })
@@ -43,6 +50,6 @@ export default class Bot {
   async run () {
     await this.setUpActionsHandler()
     this.setUpDiscordClient()
-    this.discordClient.login(config('token'))
+    await this.discordClient.login(config('token'))
   }
 }

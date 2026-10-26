@@ -1,5 +1,4 @@
-import JsonLoader from 'app/JsonLoader'
-import language from 'app/language'
+import JsonLoader from '#app/JsonLoader.js'
 
 const jsonLoader = new JsonLoader({
   fileNotExist: 'Config load error',

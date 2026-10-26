@@ -1,0 +1,11 @@
+{
+  "mcp": {
+    "docker": {
+      "type": "remote",
+      "url": "http://agent-bridge:4321/mcp/docker",
+      "headers": {
+        "Authorization": "Bearer {env:AGENT_BRIDGE_API_KEY}"
+      }
+    }
+  }
+}

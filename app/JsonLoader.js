@@ -1,5 +1,5 @@
-import fs from 'fs'
-import ApplicationError from 'app/exceptions/ApplicationError'
+import fs from 'node:fs'
+import ApplicationError from '#app/exceptions/ApplicationError.js'
 
 export default class JsonLoader {
   constructor (errorMessages) {
@@ -9,7 +9,7 @@ export default class JsonLoader {
   loadFromFile (path) {
     let content
     try {
-      content = fs.readFileSync(path)
+      content = fs.readFileSync(path, 'utf8')
     } catch (error) {
       throw new ApplicationError(this.errorMessages.fileNotExist)
     }
@@ -27,7 +27,7 @@ export default class JsonLoader {
     }
 
     const property = this.json[key]
-    if (!property) {
+    if (property === undefined) {
       throw new ApplicationError(this.errorMessages.propertyNotExist.replace('{key}', key))
     }
 

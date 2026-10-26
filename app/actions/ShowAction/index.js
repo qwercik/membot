@@ -1,6 +1,9 @@
-import db from 'app/db'
-import language from 'app/language'
-import Action from 'app/plugin-system/Action'
+import path from 'node:path'
+import db from '#app/db.js'
+import config from '#app/config.js'
+import language from '#app/language/index.js'
+import Action from '#app/plugin-system/Action.js'
+import ActionError from '#app/exceptions/ActionError.js'
 
 export default class ShowAction extends Action {
   getName () {
@@ -25,24 +28,22 @@ export default class ShowAction extends Action {
     const channel = message.rawMessage.channel
 
     const { pictureName } = message.arguments
-    const picture = db.get('pictures')
-      .find({ name: pictureName })
-      .value()
+    const picture = db.data.pictures.find(candidate => candidate.name === pictureName)
 
     if (!picture) {
-      channel.send(language('picture_not_registered_in_config'))
+      await channel.send(language('picture_not_registered_in_config'))
       return
     }
 
     try {
-      channel.send({
+      await channel.send({
         files: [{
-          attachment: `assets/${picture.filename}`,
+          attachment: path.join(config('picturesFilesPath'), picture.filename),
           name: picture.filename
         }]
       })
     } catch (error) {
-      throw new Error(language('picture_file_loading_error'))
+      throw new ActionError(language('picture_file_loading_error'))
     }
   }
 }

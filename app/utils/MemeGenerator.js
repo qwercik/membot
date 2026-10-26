@@ -1,36 +1,35 @@
 import { createCanvas, loadImage } from 'canvas'
-import language from 'app/language'
-import ActionError from 'app/exceptions/ActionError'
+import language from '#app/language/index.js'
+import ActionError from '#app/exceptions/ActionError.js'
 
-function generate (path, topText, bottomText) {
-  return new Promise((resolve, reject) => {
-    loadImage(path)
-      .then(image => {
-        const canvas = createCanvas(image.width, image.height)
-        const ctx = canvas.getContext('2d')
+async function generate (path, topText, bottomText) {
+  let image
+  try {
+    image = await loadImage(path)
+  } catch (error) {
+    throw new ActionError(language('picture_file_loading_error'))
+  }
 
-        ctx.drawImage(image, 0, 0)
-        ctx.fillStyle = 'white'
-        ctx.strokeStyle = 'black'
-        ctx.lineWidth = 2
+  const canvas = createCanvas(image.width, image.height)
+  const ctx = canvas.getContext('2d')
 
-        const fontSize = image.height * 0.15
-        ctx.font = `bold ${fontSize}px Impact`
+  ctx.drawImage(image, 0, 0)
+  ctx.fillStyle = 'white'
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 2
 
-        const topTextMargin = ctx.measureText(topText.toUpperCase()).width > 0.9 * image.width ? 0.05 * image.width : (image.width - ctx.measureText(topText.toUpperCase()).width) / 2
-        ctx.fillText(topText.toUpperCase(), topTextMargin, image.height * 0.20, 0.9 * image.width)
-        ctx.strokeText(topText.toUpperCase(), topTextMargin, image.height * 0.20, 0.9 * image.width)
+  const fontSize = image.height * 0.15
+  ctx.font = `bold ${fontSize}px Impact`
 
-        const bottomTextMargin = ctx.measureText(bottomText.toUpperCase()).width > 0.9 * image.width ? 0.05 * image.width : (image.width - ctx.measureText(bottomText.toUpperCase()).width) / 2
-        ctx.fillText(bottomText.toUpperCase(), bottomTextMargin, image.height * 0.95, 0.9 * image.width)
-        ctx.strokeText(bottomText.toUpperCase(), bottomTextMargin, image.height * 0.95, 0.9 * image.width)
+  const topTextMargin = ctx.measureText(topText.toUpperCase()).width > 0.9 * image.width ? 0.05 * image.width : (image.width - ctx.measureText(topText.toUpperCase()).width) / 2
+  ctx.fillText(topText.toUpperCase(), topTextMargin, image.height * 0.20, 0.9 * image.width)
+  ctx.strokeText(topText.toUpperCase(), topTextMargin, image.height * 0.20, 0.9 * image.width)
 
-        resolve(canvas.createJPEGStream())
-      })
-      .catch(() => {
-        reject(new ActionError(language('picture_file_loading_error')))
-      })
-  })
-};
+  const bottomTextMargin = ctx.measureText(bottomText.toUpperCase()).width > 0.9 * image.width ? 0.05 * image.width : (image.width - ctx.measureText(bottomText.toUpperCase()).width) / 2
+  ctx.fillText(bottomText.toUpperCase(), bottomTextMargin, image.height * 0.95, 0.9 * image.width)
+  ctx.strokeText(bottomText.toUpperCase(), bottomTextMargin, image.height * 0.95, 0.9 * image.width)
+
+  return canvas.toBuffer('image/jpeg', { quality: 0.9 })
+}
 
 export default { generate }

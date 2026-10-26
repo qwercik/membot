@@ -1,6 +1,7 @@
-import Action from 'app/plugin-system/Action'
-import ActionError from 'app/exceptions/ActionError'
-import language from 'app/language'
+import { EmbedBuilder } from 'discord.js'
+import Action from '#app/plugin-system/Action.js'
+import ActionError from '#app/exceptions/ActionError.js'
+import language from '#app/language/index.js'
 
 export default class HelpAction extends Action {
   getName () {
@@ -31,18 +32,19 @@ export default class HelpAction extends Action {
       const actionsListString = actionsList.map(action => `${action.getName()} - ${action.getDescription()}`).join('\n')
 
       messageContent = {
-        embed: {
-          color: 0x40ABF7,
-          title: language('bot_help_title'),
-          description: language('bot_help_description'),
-          fields: [
-            { name: language('section_instructions_syntax_title'), value: language('section_instructions_syntax_content') },
-            { name: language('section_aliases_title'), value: language('section_aliases_content') },
-            { name: language('section_examples_title'), value: language('section_examples_content') },
-            { name: language('section_actions_list_title'), value: actionsListString },
-            { name: language('section_learn_more_title'), value: language('section_learn_more_content') }
-          ]
-        }
+        embeds: [
+          new EmbedBuilder()
+            .setColor(0x40ABF7)
+            .setTitle(language('bot_help_title'))
+            .setDescription(language('bot_help_description'))
+            .addFields(
+              { name: language('section_instructions_syntax_title'), value: language('section_instructions_syntax_content') },
+              { name: language('section_aliases_title'), value: language('section_aliases_content') },
+              { name: language('section_examples_title'), value: language('section_examples_content') },
+              { name: language('section_actions_list_title'), value: actionsListString },
+              { name: language('section_learn_more_title'), value: language('section_learn_more_content') }
+            )
+        ]
       }
     } else {
       const action = actionsList.find(action => action.getAllReferenceNames().includes(actionName))
@@ -54,15 +56,16 @@ export default class HelpAction extends Action {
       const argumentsString = action.getArguments().map(argument => `${argument.name} - ${argument.description}`).join('\n') || language('no_arguments')
 
       messageContent = {
-        embed: {
-          color: 0x40ABF7,
-          title: `${language('action')} ${action.getName()}`,
-          description: action.getDescription(),
-          fields: [
-            { name: language('available_aliases'), value: `${language('available_aliases_text')}: ${allReferenceNamesString}` },
-            { name: language('arguments'), value: argumentsString }
-          ]
-        }
+        embeds: [
+          new EmbedBuilder()
+            .setColor(0x40ABF7)
+            .setTitle(`${language('action')} ${action.getName()}`)
+            .setDescription(action.getDescription())
+            .addFields(
+              { name: language('available_aliases'), value: `${language('available_aliases_text')}: ${allReferenceNamesString}` },
+              { name: language('arguments'), value: argumentsString }
+            )
+        ]
       }
     }
 
@@ -73,7 +76,7 @@ export default class HelpAction extends Action {
     }
 
     if (!message.isPrivate()) {
-      channel.send(`${author}, ${language('help_send_in_priv')}`)
+      await channel.send(`${author}, ${language('help_send_in_priv')}`)
     }
   }
 }

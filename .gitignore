@@ -2,6 +2,8 @@ config/config.json
 config/db.json
 node_modules/
 
+.env.agent
+
 assets/*
 !assets/.gitkeep
 

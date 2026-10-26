@@ -1,11 +1,10 @@
-import lowdb from 'lowdb'
-import FileSync from 'lowdb/adapters/FileSync'
-import config from 'app/config'
+import { LowSync } from 'lowdb'
+import { JSONFileSync } from 'lowdb/node'
+import config from '#app/config.js'
 
-const fileAdapter = new FileSync(config('databaseFilePath'))
-const db = lowdb(fileAdapter)
+const fileAdapter = new JSONFileSync(config('databaseFilePath'))
+const db = new LowSync(fileAdapter, { pictures: [] })
 
-db.defaults({ pictures: [] })
-  .write()
+db.read()
 
 export default db

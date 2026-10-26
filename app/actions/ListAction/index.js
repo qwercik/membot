@@ -1,6 +1,6 @@
-import Action from 'app/plugin-system/Action'
-import db from 'app/db'
-import language from 'app/language'
+import Action from '#app/plugin-system/Action.js'
+import db from '#app/db.js'
+import language from '#app/language/index.js'
 
 export default class ListAction extends Action {
   getName () {
@@ -18,11 +18,10 @@ export default class ListAction extends Action {
   async callback (message) {
     const channel = message.rawMessage.channel
 
-    const picturesList = db.get('pictures')
-      .map('name')
-      .value()
+    const picturesList = db.data.pictures
+      .map(picture => picture.name)
       .join(', ')
 
-    channel.send(`${language('pictures_list_info')}: ${picturesList}`)
+    await channel.send(`${language('pictures_list_info')}: ${picturesList}`)
   }
 }

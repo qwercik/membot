@@ -1,40 +1,44 @@
-import fs from 'fs'
-import path from 'path'
-import ApplicationError from 'app/exceptions/ApplicationError'
-import ActionValidator from 'app/plugin-system/ActionValidator'
-import language from 'app/language'
-import { forceEndingWith } from 'app/utils'
+import fs from 'node:fs'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
+import ApplicationError from '#app/exceptions/ApplicationError.js'
+import ActionValidator from '#app/plugin-system/ActionValidator.js'
+import language from '#app/language/index.js'
 
 export default class ActionsLoader {
   constructor (actionsDirectory) {
-    this.actionsDirectory = forceEndingWith(actionsDirectory, '/')
+    this.actionsDirectory = path.resolve(actionsDirectory)
   }
 
-  async getActionsFilesList () {
-    let actions = []
+  getActionsFilesList () {
     try {
-      actions = fs.readdirSync(this.actionsDirectory).filter(filename => {
-        const path = this.actionsDirectory + filename
-        const stat = fs.lstatSync(path)
+      return fs.readdirSync(this.actionsDirectory, { withFileTypes: true })
+        .filter(entry => {
+          if (entry.isFile()) {
+            return entry.name.endsWith('.js')
+          }
 
-        return (stat.isFile() && filename.endsWith('.js')) || (stat.isDirectory() && fs.existsSync(forceEndingWith(path, '/') + 'index.js'))
-      })
+          return entry.isDirectory() && fs.existsSync(path.join(this.actionsDirectory, entry.name, 'index.js'))
+        })
+        .map(entry => entry.name)
     } catch (error) {
       console.error(error)
       throw new ApplicationError(language('actions_list_load_error'))
     }
-
-    return actions
   }
 
   async loadActionsModules (actionsHandler) {
-    const files = await this.getActionsFilesList()
+    const files = this.getActionsFilesList()
 
     for (const fileName of files) {
+      const modulePath = path.join(this.actionsDirectory, fileName)
+      const filePath = fs.statSync(modulePath).isDirectory()
+        ? path.join(modulePath, 'index.js')
+        : modulePath
+
       let action
       try {
-        const path = this.actionsDirectory + fileName
-        const ActionClass = (await import(path)).default
+        const ActionClass = (await import(pathToFileURL(filePath).href)).default
         action = new ActionClass()
       } catch (error) {
         throw new ApplicationError(`${language('action_load_error')} ${fileName}`)

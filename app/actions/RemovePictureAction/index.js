@@ -1,6 +1,6 @@
-import language from 'app/language'
-import PicturesManager from 'app/utils/PicturesManager'
-import Action from 'app/plugin-system/Action'
+import language from '#app/language/index.js'
+import PicturesManager from '#app/utils/PicturesManager.js'
+import Action from '#app/plugin-system/Action.js'
 
 export default class RemovePictureAction extends Action {
   getName () {
@@ -24,6 +24,6 @@ export default class RemovePictureAction extends Action {
     const { pictureName } = message.arguments
 
     await PicturesManager.remove(pictureName)
-    channel.send(language('picture_removed'))
+    await channel.send(language('picture_removed'))
   }
 }

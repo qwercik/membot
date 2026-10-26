@@ -1,4 +1,4 @@
-import JsonLoader from 'app/JsonLoader'
+import JsonLoader from '#app/JsonLoader.js'
 
 const jsonLoader = new JsonLoader({
   fileNotExist: 'Such language doesn\'t exist',

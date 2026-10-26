@@ -1,17 +1,15 @@
-import FilesDownloader from 'app/network/FilesDownloader'
-import ActionError from '../exceptions/ActionError'
-import config from 'app/config'
-import language from 'app/language'
-import db from 'app/db'
-import fs from 'fs'
-import util from 'util'
+import path from 'node:path'
+import fs from 'node:fs'
+import FilesDownloader from '#app/network/FilesDownloader.js'
+import ActionError from '#app/exceptions/ActionError.js'
+import config from '#app/config.js'
+import language from '#app/language/index.js'
+import db from '#app/db.js'
 
-const unlink = util.promisify(fs.unlink)
+const unlink = fs.promises.unlink
 
 function getPictureByName (pictureName) {
-  return db.get('pictures')
-    .find({ name: pictureName })
-    .value()
+  return db.data.pictures.find(picture => picture.name === pictureName)
 }
 
 function createFile (pictureName, url) {
@@ -19,10 +17,10 @@ function createFile (pictureName, url) {
 }
 
 async function removeFile (fileName) {
-  const path = config('picturesFilesPath') + fileName
+  const filePath = path.join(config('picturesFilesPath'), fileName)
 
   try {
-    await unlink(path)
+    await unlink(filePath)
   } catch (error) {
     throw new ActionError(language('remove_picture_file_error'))
   }
@@ -38,9 +36,8 @@ async function create (pictureName, url) {
   picture = { name: pictureName, filename: file.name }
 
   try {
-    db.get('pictures')
-      .push(picture)
-      .write()
+    db.data.pictures.push(picture)
+    db.write()
   } catch (error) {
     throw new ActionError(language('db_write_error'))
   }
@@ -56,17 +53,11 @@ async function remove (pictureName) {
 
   await removeFile(picture.filename)
 
-  let removed
   try {
-    removed = db.get('pictures')
-      .remove({ name: pictureName })
-      .write()
+    db.data.pictures = db.data.pictures.filter(candidate => candidate.name !== pictureName)
+    db.write()
   } catch (error) {
     throw new ActionError(language('db_write_error'))
-  }
-
-  if (removed.length <= 0) {
-    throw new ActionError(language('picture_not_registered_in_config'))
   }
 }
 

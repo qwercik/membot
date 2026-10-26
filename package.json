@@ -2,23 +2,27 @@
 	"name": "membot",
 	"version": "1.0.0",
 	"description": "Bot that generate memes",
-	"main": "bot.js",
+	"type": "module",
+	"main": "main.js",
 	"author": "Eryk Andrzejewski",
+	"engines": {
+		"node": ">=22.0.0"
+	},
+	"imports": {
+		"#app/*": "./app/*"
+	},
 	"scripts": {
-		"start": "node -r esm -r app-module-path/cwd main.js",
+		"start": "node main.js",
 		"test": "standard"
 	},
 	"dependencies": {
-		"app-module-path": "^2.2.0",
-		"axios": "^0.19.0",
-		"canvas": "^2.5.0",
-		"discord-command-parser": "^1.2.1",
-		"discord.js": "^11.5.1",
-		"eslint-utils": "^1.4.2",
-		"esm": "^3.2.25",
-		"lowdb": "^1.0.0"
+		"axios": "^1.20.0",
+		"canvas": "^3.2.3",
+		"discord-command-parser": "^1.5.3",
+		"discord.js": "^14.27.0",
+		"lowdb": "^7.0.1"
 	},
 	"devDependencies": {
-		"standard": "^13.1.0"
+		"standard": "^17.1.2"
 	}
 }

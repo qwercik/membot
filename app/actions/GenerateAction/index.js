@@ -1,9 +1,11 @@
-import MemeGenerator from 'app/utils/MemeGenerator'
-import PicturesManager from 'app/utils/PicturesManager'
-import db from 'app/db'
-import language from 'app/language'
-import config from 'config/config'
-import Action from 'app/plugin-system/Action'
+import path from 'node:path'
+import MemeGenerator from '#app/utils/MemeGenerator.js'
+import PicturesManager from '#app/utils/PicturesManager.js'
+import db from '#app/db.js'
+import language from '#app/language/index.js'
+import config from '#app/config.js'
+import Action from '#app/plugin-system/Action.js'
+import ActionError from '#app/exceptions/ActionError.js'
 
 function generatePictureName () {
   const date = new Date()
@@ -11,7 +13,7 @@ function generatePictureName () {
 }
 
 function isHttpUrl (text) {
-  const pattern = /https?:\/\/(www\.)?[-a-za-z0-9@:%._+~#=]{1,256}\.[a-za-z0-9()]{1,6}\b([-a-za-z0-9()@:%_+.~#?&//=]*)/
+  const pattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[-a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
   return pattern.test(text)
 }
 
@@ -47,27 +49,26 @@ export default class GenerateAction extends Action {
       picture = await PicturesManager.create(pictureName, pictureReference)
     } else {
       pictureName = pictureReference
-      picture = db.get('pictures')
-        .find({ name: pictureName })
-        .value()
+      picture = db.data.pictures.find(candidate => candidate.name === pictureName)
 
       if (!picture) {
-        channel.send(language('picture_not_registered_in_config'))
+        await channel.send(language('picture_not_registered_in_config'))
         return
       }
     }
 
-    const path = config['picturesFilesPath'] + picture.filename
-    const generatedMeme = await MemeGenerator.generate(path, topText, bottomText)
+    const picturePath = path.join(config('picturesFilesPath'), picture.filename)
+    const generatedMeme = await MemeGenerator.generate(picturePath, topText, bottomText)
 
     try {
-      channel.send({
+      await channel.send({
         files: [{
-          attachment: generatedMeme
+          attachment: generatedMeme,
+          name: 'meme.jpg'
         }]
       })
     } catch (error) {
-      throw Error(language('picture_file_loading_error'))
+      throw new ActionError(language('picture_file_loading_error'))
     }
 
     if (isHttpUrl(pictureReference)) {
